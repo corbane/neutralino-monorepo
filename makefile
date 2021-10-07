@@ -71,4 +71,4 @@ test:
 	cd client && neu run
 
 
-.PHONY: spec
+.PHONY: spec server
