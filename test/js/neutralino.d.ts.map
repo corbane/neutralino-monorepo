@@ -1,0 +1,1 @@
+{"version":3,"file":"neutralino.d.ts","sourceRoot":"","sources":["src/index.ts","src/api/events.ts","src/http/request.ts","src/api/filesystem.ts","src/api/os.ts","src/api/computer.ts","src/api/storage.ts","src/api/debug.ts","src/api/app.ts","src/api/window.ts","src/ping/ping.ts","src/debug/devclient.ts","src/api/init.ts"],"names":[],"mappings":""}

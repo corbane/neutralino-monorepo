@@ -33,6 +33,8 @@ spec:
 	cp spec/dist/neutralino.api.d.ts  client/src/http
 	cp spec/dist/neutralino.api.json  client/test
 
+spec-watch:
+	node spec/scripts/run.js --watch-json
 
 client: spec
 	@echo 
@@ -55,7 +57,7 @@ server:
 	cd server && build_windows.bat
 
 
-testapp: client-dev
+app: client-dev
 	@echo
 	@echo \# Copy the binary server to the client directory
 
@@ -65,10 +67,6 @@ testapp: client-dev
 	rm -r   client/bin/resources
 
 	@echo
-	@echo \# Use "make test" to show and test the api.
-
-test:
-	cd client && neu run
-
+	@echo \# Use "neu run" to show and test the api.
 
 .PHONY: spec server
