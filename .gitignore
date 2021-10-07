@@ -1,4 +1,6 @@
 
 /bin
+/test/icons
+/test/js
 **/*.no.*
 *.log
