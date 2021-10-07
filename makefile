@@ -31,7 +31,6 @@ spec:
 
 	node spec/scripts/run.js --build-dts
 	cp spec/dist/neutralino.api.d.ts  client/src/http
-	cp spec/dist/neutralino.api.json  client/test
 
 spec-watch:
 	node spec/scripts/run.js --watch-json
@@ -61,10 +60,10 @@ app: client-dev
 	@echo
 	@echo \# Copy the binary server to the client directory
 
-	cp -ru  server/bin                  client
-	cp -ru  server/bin/resources/icons  client/test
-	cp -ru  server/bin/resources/js     client/test
-	rm -r   client/bin/resources
+	cp -ru  server/bin                  .
+	cp -ru  server/bin/resources/icons  ./test
+	cp -ru  server/bin/resources/js     ./test
+	rm -r   ./bin/resources
 
 	@echo
 	@echo \# Use "neu run" to show and test the api.

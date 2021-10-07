@@ -1,8 +1,8 @@
 {
-    "$schema"         : "../spec/dist/neutralino.config.schema.json",
+    "$schema"         : "./spec/dist/neutralino.config.schema.json",
     "applicationId"   : "js.neutralino.sample",
     "defaultMode"     : "window",
-    "port"            : 65097,
+    "port"            : 0,
     "url"             : "/test/",
     "enableHTTPServer": true,
     "enableNativeAPI" : true,
