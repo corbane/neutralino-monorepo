@@ -1,0 +1,9 @@
+[submodule "neutralinojs"]
+	path = neutralinojs
+	url = https://github.com/neutralinojs/neutralinojs.git
+[submodule "v2-client-specification"]
+	path = v2-client-specification
+	url = https://github.com/corbane/v2-client-specification.git
+[submodule "neutralino.js"]
+	path = neutralino.js
+	url = https://github.com/corbane/neutralino.js.git
