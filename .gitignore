@@ -2,5 +2,5 @@
 /bin
 /test/icons
 /test/js
-**/*.no.*
+**/*.no
 *.log
