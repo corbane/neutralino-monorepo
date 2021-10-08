@@ -43,6 +43,10 @@ spec-watch:
 	node spec/scripts/run.js --watch-json
 
 
+md:
+	node spec/scripts/md.js
+
+
 client: spec
 	@echo 
 	@echo \# Build the JavaScript client file
