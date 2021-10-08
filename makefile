@@ -1,30 +1,35 @@
 
 
-info: init?
-	@echo
-	@echo 'NOTE: On Windows, all commands except "make server" work in git bash (https://git-scm.com)'
-	@echo '      "make server" must be running in PowerShell'
-
-init?:
-	@echo
-	@echo 'init        - Initialize Git submodules and Node packages'
-	@echo 'init-online - Same as 'init' except that 'pnpm' runs without a '--offline' flag'
-
-init: init-git
-
-	cd spec &&  pnpm install --offline
-	cd client &&  pnpm install --offline
-
-init-online: init-git
-
-	cd spec &&  pnpm install
-	cd client &&  pnpm install
+info:
+	@echo 
+	@echo '# Initialization'
+	@echo 'init-git    - '
+	@echo 'pnpm        - Initialize Git submodules and Node packages'
+	@echo 'pnpm-online - Same as 'init' except that 'pnpm' runs without a '--offline' flag'
+	@echo 
+	@echo '# API specification'
+	@echo 'spec        - Generate a bundled JSON API, model schemas and Typescript definition file'
+	@echo 'spec-watch  - Watch mode of the 'json' command'
+	@echo 
+	@echo '# Application test'
+	@echo 'app         - Generate the Neutralino test application'
+	@echo 
+	@echo '# NOTE'
+	@echo 'On Windows, all commands except "make server" work in git bash (https://git-scm.com)'
+	@echo '"make server" must be running in PowerShell'
 
 init-git:
-
 	git clone https://github.com/corbane/v2-client-specification.git  spec
 	git clone https://github.com/corbane/neutralino.js.git            client
 	git clone https://github.com/corbane/neutralinojs.git             server
+
+pnpm:
+	cd spec &&  pnpm install --offline
+	cd client &&  pnpm install --offline
+
+pnpm-online:
+	cd spec &&  pnpm install
+	cd client &&  pnpm install
 
 
 spec:
@@ -36,6 +41,7 @@ spec:
 
 spec-watch:
 	node spec/scripts/run.js --watch-json
+
 
 client: spec
 	@echo 
@@ -60,7 +66,7 @@ server:
 
 app: client-dev
 	@echo
-	@echo \# Copy the binary server to the client directory
+	@echo \# Copy the binary server to the root directory
 
 	cp -ru  server/bin                  .
 	cp -ru  server/bin/resources/icons  ./test
@@ -69,5 +75,6 @@ app: client-dev
 
 	@echo
 	@echo \# Use "neu run" to show and test the api.
+
 
 .PHONY: spec server
