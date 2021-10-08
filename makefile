@@ -10,19 +10,21 @@ init?:
 	@echo 'init        - Initialize Git submodules and Node packages'
 	@echo 'init-online - Same as 'init' except that 'pnpm' runs without a '--offline' flag'
 
-init:
+init: init-git
 
-	git submodule init
-	git submodule update
 	cd spec &&  pnpm install --offline
 	cd client &&  pnpm install --offline
 
-init-online:
+init-online: init-git
 
-	git submodule init
-	git submodule update
 	cd spec &&  pnpm install
 	cd client &&  pnpm install
+
+init-git:
+
+	git clone https://github.com/corbane/v2-client-specification.git  spec
+	git clone https://github.com/corbane/neutralino.js.git            client
+	git clone https://github.com/corbane/neutralinojs.git             server
 
 
 spec:

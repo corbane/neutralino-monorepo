@@ -1,6 +1,11 @@
 
+/client
+/server
+/spec
+
 /bin
 /test/icons
 /test/js
+
 **/*.no
 *.log
