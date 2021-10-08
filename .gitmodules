@@ -1,9 +1,0 @@
-[submodule "spec"]
-	path = spec
-	url = https://github.com/corbane/v2-client-specification.git
-[submodule "client"]
-	path = client
-	url = https://github.com/corbane/neutralino.js.git
-[submodule "server"]
-	path = server
-	url = https://github.com/corbane/neutralinojs.git
