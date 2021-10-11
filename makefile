@@ -5,6 +5,14 @@ info:
 NPM=pnpm
 NPM_FLAG=--offline
 
+quickway:
+	$(NPM) install $(NPM_FLAG)
+	make git.clone
+	make js.install
+	make api.json
+	make test.app
+	neu run
+
 api.json:
 	node makeme api.json --apis spec/api/*.yaml --outfile out/neutralino.messages.json
 
@@ -21,7 +29,7 @@ git.clone:
 	node makeme git.clone
 
 js.install:
-	node makeme js.install $(NPM) $(NPM_FLAG)
+	node makeme js.install --$(NPM) $(NPM_FLAG)
 
 readme:
 	node makeme readme --cmddir tools/ --outfile README.md --intro tools/INTRO.md
@@ -33,7 +41,7 @@ schema.md:
 	node makeme schema.md --schemas spec/models/neutralino.config.schema.yaml --outdir site/docs/configuration/
 
 test.app:
-	node makeme testapp
+	node makeme test.app
 
 
 	
