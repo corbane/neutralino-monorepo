@@ -32,7 +32,7 @@ export function main ()
     if (pm)
         flags.splice (flags.indexOf ('--' + pm), 1)
     else
-        pm = 'yarn'
+        pm = 'npm'
 
 	run (`cd client &&  ${pm} install ${flags}`)
 	run (`cd site   &&  ${pm} install ${flags}`)
