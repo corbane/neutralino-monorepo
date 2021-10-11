@@ -4,14 +4,11 @@
 
     WORK_IN_PROGRESS:
 
-    FOR_NEUTRALINO:
+    USAGE:
 
     ```bash
-    node makeme testapp
+    node makeme test.app
     ```
-
-
-
 /*/
 
 //@ts-check

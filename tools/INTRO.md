@@ -21,16 +21,16 @@ cd neutralino-monorepo
 npm install # you can use also yarn or pnpm package manager
  
 # download sources of Neutralino
-node makeme init-git
+node makeme git.clone
 
 # run npm on downloaded subfolders
-node makeme init-js --npm # or --yarn or --pnpm
+node makeme js.install --npm # or --yarn or --pnpm
 
 # Generate a bundled JSON API
 node makeme api.json --apis spec/api/*.yaml --outfile out/neutralino.messages.json
 
 # initialize a test application
-node makeme testapp
+node makeme test.app
 
 # run the app
 neu run

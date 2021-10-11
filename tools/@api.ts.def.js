@@ -5,7 +5,7 @@
     USAGE:
 
     ```bash
-    node makeme api.dts  --api <path>  --outfile <path>
+    node makeme api.ts.def  --api <path>  --outfile <path>
     ```
 
     - `--api` OpenAPI JSON input file
@@ -16,10 +16,8 @@
     This command is used to create the `neutralino.messages.d.ts` file to add type checking to the client API's `request` function.
     
     ```bash
-    node makeme api.dts  --api out/neutralino.messages.json  --outfile out/neutralino.messages.d.ts
+    node makeme api.ts.def  --api out/neutralino.messages.json  --outfile client/src/http/neutralino.messages.d.ts
     ```
-
-    `neutralino.messages.d.ts` must be copied to the same directory as `request.ts`.
 /*/
 
 //@ts-check

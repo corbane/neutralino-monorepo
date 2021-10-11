@@ -5,12 +5,17 @@
     WORK_IN_PROGRESS:
 
     USAGE:
-    > `node make-md-schemas --schemas <path[]> --outdir <path>`
+
+    ```bash
+    node makeme schema.md --schemas <path[]> --outdir <path>
+    ```
 
     FOR_NEUTRALINO:
     This command is used to create the [neutralino.config.json](https://neutralino.js.org/docs/configuration/neutralino.config.json) markdown page.
     
-    > `node make-md-schemas --schemas ./models/neutralino.config.schema.yaml --outdir site/docs/configuration/`
+    ```bash
+    node makeme schema.md --schemas spec/models/neutralino.config.schema.yaml --outdir site/docs/configuration/
+    ```
 
     NOTE:
     The output file name is different than the existing.
@@ -34,7 +39,7 @@ import { readYamlFile } from './lib.js'
 export function main ()
 {
     const schfiles = requireArgumentList ('--schemas').map (path => Path.resolve (path))
-    const outdir   = Path.resolve (requireArgument ('--outfile'))
+    const outdir   = Path.resolve (requireArgument ('--outdir'))
     
     schfiles.forEach (async path =>
     {

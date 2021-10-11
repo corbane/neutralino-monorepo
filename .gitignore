@@ -1,19 +1,25 @@
 
 /.vscode
 
+**/*.no
+**/*.no.*
+*.log
+
+# Neutralino sources
 /client
 /server
 /spec
+/site
 
+# Test app
 /bin
 /test/icons
 /test/js
 
-**/*.no
-*.log
-*.exe
-
-
 # npm, pnpm
 **/node_modules
 **/*-lock.yaml
+
+# tmp
+/tools/md
+/tools/schema

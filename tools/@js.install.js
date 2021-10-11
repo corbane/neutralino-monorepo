@@ -1,6 +1,15 @@
 /*/
     OVERVIEW:
     Initialize Node packages
+
+    USAGE:
+
+    ```bash
+    node makeme js.install <packages_manager> <flags...>
+    ```
+
+    - `<packages_manager>` can be oneof `--npm` (default), `--yarn` or `--pnpm`
+    - `<flags...>` flags are passed to the package manager and depend on which one you choose.
 /*/
 
 //@ts-check

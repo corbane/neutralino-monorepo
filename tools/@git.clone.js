@@ -2,6 +2,12 @@
     OVERVIEW:
     Initialize Git submodules
 
+    USAGE:
+
+    ```bash
+    node makeme git.clone
+    ```
+
     DESCRIPTION:
     Run the `git clone` command to download the Neutralino repositories in the following directories.
 

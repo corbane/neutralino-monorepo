@@ -1,10 +1,14 @@
 /*/
-    node build.mjs
-
     OVERVIEW:
     Compile the js client library
 
-    WORK_IN_PROGRESS:
+    USAGE:
+
+    ```bash
+    node makeme api.ts
+    ```
+
+    TODO:
     - `neutralino.js.map` is not generated in dev mode.
     - Add a function to move the .js.map files while keeping the references to the sources.
 /*/

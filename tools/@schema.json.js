@@ -3,12 +3,17 @@
     Convert a JSON/YAML schema to a flattened JSON schema
 
     USAGE:
-    > `node makeme schema.json --schemas <path[]>  --outdir <path>`
+    
+    ```bash
+    node makeme schema.json --schemas <path[]>  --outdir <path>
+    ```
 
     FOR_NEUTRALINO:
     This command is used to create the `neutralino.config.schema.json` file.
 
-    > `node tools/cmd-json-schema.js  --schemas spec/models/*.schema.yaml  --outdir out/`
+    ```bash
+    node makeme schema.json --schemas spec/models/*.schema.yaml --outdir out/
+    ```
 
     This allows you to have a completion when editing the `neutralino.config.json` file. \
     Only if the IDE supports this feature and if `neutralino.config.json` has a `$schema` field like:
