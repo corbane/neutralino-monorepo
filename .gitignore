@@ -5,6 +5,8 @@
 **/*.no.*
 *.log
 
+/out
+
 # Neutralino sources
 /client
 /server

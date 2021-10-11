@@ -2,6 +2,15 @@
 
 Various tools to make Neutralino API dependencies consistent.
 
+```txt
+                 ┌─> out/neutralino.config.schema.json
+spec/api/*.yaml ─┼─> client/src/http/neutralino.messages.d.ts
+                 └─> site/docs/api/*.md
+
+spec/models/*.yaml ─┬─> site/docs/configuration/neutralino.config.schema.json
+                    └─> server/resources/neutralino.config.schema.json
+```
+
 **NOTE** 
 
 These script can use:
