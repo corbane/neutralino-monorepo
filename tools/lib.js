@@ -117,7 +117,7 @@ function blue (message)
     return FG_BLUE + message + FBG_RESET
 }
 
-class CommandLineError extends Error
+export class CommandLineError extends Error
 {
     constructor (message) { super (FG_RED + message + FBG_RESET) }
 }

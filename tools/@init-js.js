@@ -5,25 +5,45 @@
 
 //@ts-check
 
-const NPM_CMD = 'pnpm'
-const PNPM_FLAG = '--offline'
-
 import { execSync } from 'child_process'
-import { ROOT_DIR, isMain } from './lib.js'
+import { ROOT_DIR, hasArgument, CommandLineError, getArguments } from './lib.js'
 
-/**
-    @typedef {import ('child_process').ExecSyncOptionsWithBufferEncoding} ExecSyncOptionsWithBufferEncoding
-*/
+
+/** @type {import ('child_process').ExecSyncOptionsWithBufferEncoding} */
+const options = { cwd: ROOT_DIR, env: process.env, stdio: [process.stdin, process.stdout, process.stderr] }
 
 export function main ()
 {
-    /** @type {ExecSyncOptionsWithBufferEncoding} */
-    const options = { cwd: ROOT_DIR, env: process.env, stdio: [process.stdin, process.stdout, process.stderr] }
+    var pm = null
+    if (hasArgument ('--npm')) {
+        pm = 'npm'
+    }
+    if (hasArgument ('--yarn')) {
+        if (pm !== null) throw new CommandLineError ('Cannot use multiple package managers')
+        pm = 'yarn'
+    }
+    if (hasArgument ('--pnpm')) {
+        if (pm !== null) throw new CommandLineError ('Cannot use multiple package managers')
+        pm = 'pnpm'
+    }
 
-	execSync (`cd client &&  ${NPM_CMD} install ${PNPM_FLAG}`, options)
-	execSync (`cd site   &&  ${NPM_CMD} install ${PNPM_FLAG}`, options)
-	execSync (`cd tools  &&  ${NPM_CMD} install ${PNPM_FLAG}`, options)
+    const flags = getArguments ()
+
+    if (pm)
+        flags.splice (flags.indexOf ('--' + pm), 1)
+    else
+        pm = 'yarn'
+
+	run (`cd client &&  ${pm} install ${flags}`)
+	run (`cd site   &&  ${pm} install ${flags}`)
+	run (`cd tools  &&  ${pm} install ${flags}`)
     
-    // #	if this package is not a root dependency, Docusaurus fails to build
-    // ${NPM_CMD} install url-loader
+    // if this package is not a root dependency, Docusaurus fails to build
+    // ${pm} install url-loader
+}
+
+function run (command)
+{
+    console.log (command)
+    execSync (command, options)
 }
