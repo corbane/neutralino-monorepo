@@ -21,26 +21,13 @@ These script can use:
 
 If like me you don't have a LINUX compatible terminal, a simple way is to use [Git bash](https://git-scm.com/downloads).
 
+To facilitate the operation you must have Gnu Make on your system.
+If you are on Windows, you can install this [complete package, except sources](http://gnuwin32.sourceforge.net/packages/make.htm)
+
 ## The quick way
 
 ```bash
 git clone https://github.com/corbane/neutralino-monorepo.git
 cd neutralino-monorepo
-
-npm install # you can use also yarn or pnpm package manager
- 
-# download sources of Neutralino
-node makeme git.clone
-
-# run npm on downloaded subfolders
-node makeme js.install --npm # or --yarn or --pnpm
-
-# Generate a bundled JSON API
-node makeme api.json --apis spec/api/*.yaml --outfile out/neutralino.messages.json
-
-# initialize a test application
-node makeme test.app
-
-# run the app
-neu run
+make quickway
 ```

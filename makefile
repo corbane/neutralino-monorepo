@@ -1,12 +1,12 @@
 
+NPM=pnpm
+NPM_FLAGS=--offline
+
 info:
 	node makeme help
 
-NPM=pnpm
-NPM_FLAG=--offline
-
 quickway:
-	$(NPM) install $(NPM_FLAG)
+	$(NPM) install $(NPM_FLAGS)
 	make git.clone
 	make js.install
 	make api.json
@@ -29,7 +29,7 @@ git.clone:
 	node makeme git.clone
 
 js.install:
-	node makeme js.install --$(NPM) $(NPM_FLAG)
+	node makeme js.install --$(NPM) $(NPM_FLAGS)
 
 readme:
 	node makeme readme --cmddir tools/ --outfile README.md --intro tools/INTRO.md
