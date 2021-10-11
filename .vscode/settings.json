@@ -1,10 +1,11 @@
 {
     "files.exclude": {
-        "**/.git": true,
+        "**/.git"         : true,
         "*.code-workspace": true,
-        "server": true,
-        "bin": true,
-        "client": true,
-        "spec": true
+        "server"          : true,
+        "bin"             : true,
+        "client"          : true,
+        "spec"            : true,
+        "site"            : true
     }
 }

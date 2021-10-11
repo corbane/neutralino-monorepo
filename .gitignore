@@ -1,11 +1,19 @@
 
+/.vscode
+
 /client
 /server
 /spec
 
 /bin
-/test/icons
+/test/resources
 /test/js
 
 **/*.no
 *.log
+*.exe
+
+
+# npm, pnpm
+**/node_modules
+**/*-lock.yaml
