@@ -1,6 +1,6 @@
 /*/
     OVERVIEW:
-    Generate a HTML file from a NAPI file.
+    Generate a HTML file from a Markdown file.
 /*/
 //@ts-check
 

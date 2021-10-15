@@ -3,8 +3,8 @@
     Initialize Node packages
 
     USAGE:
-    * `<packages_manager>` Can be oneof `--npm` (default), `--yarn` or `--pnpm`
-    * `<flags...>`         Flags are passed to the package manager and depend on which one you choose.
+    * `[packages_manager = --npm]` Can be oneof `--npm`, `--yarn` or `--pnpm`
+    * `[flags...]`                 Flags are passed to the package manager and depend on which one you choose.
 /*/
 //@ts-check
 

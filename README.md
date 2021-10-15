@@ -37,7 +37,7 @@ command | overview
 [`git.clone`](#gitclone) | Initialize Git submodules
 [`js.install`](#jsinstall) | Initialize Node packages
 [`napi.dts`](#napidts) | Generate a Typescript definition file from API files.
-[`napi.html`](#napihtml) | Generate a HTML file from a NAPI file.
+[`napi.html`](#napihtml) | Generate a HTML file from a Markdown file.
 [`napi.md`](#napimd) | Generate a Markdown file from a NAPI file.
 [`napi.sch`](#napisch) | Generate a JSON Schema File from a NAPI File.
 [`readme`](#readme) | Generate this `README.md`
@@ -52,7 +52,7 @@ command | overview
 
 **ARGS**
 
-* `<flags...>`
+* `[flags...]`
 
 **TODO**
 
@@ -74,7 +74,6 @@ Initialize Git submodules
 
 Run the `git clone` command to download the Neutralino repositories in the following directories.
 
-- `v2-client-specification` in `spec`
 - `neutralinojs` in `server`
 - `neutralino.js` in `client`
 - `neutralinojs.github.io` in `site`
@@ -88,8 +87,8 @@ Initialize Node packages
 
 **USAGE**
 
-* `<packages_manager>` Can be oneof `--npm` (default), `--yarn` or `--pnpm`
-* `<flags...>`         Flags are passed to the package manager and depend on which one you choose.
+* `[packages_manager = --npm]` Can be oneof `--npm`, `--yarn` or `--pnpm`
+* `[flags...]`                 Flags are passed to the package manager and depend on which one you choose.
 
 
 [<sub>top</sub>](#command-overview)
@@ -114,7 +113,7 @@ file to add type checking to the client API's `request` function.
 
 ## `napi.html`
 
-Generate a HTML file from a NAPI file.
+Generate a HTML file from a Markdown file.
 
 
 [<sub>top</sub>](#command-overview)
@@ -125,7 +124,7 @@ Generate a Markdown file from a NAPI file.
 
 **ARGS**
 
-- `--apis   <file...>`  Input NAPIs in JSON or YAML format.
+- `--napis  <file...>`  Input NAPIs in JSON or YAML format.
 - `--outdir <dir>`      Output directory.
 - `--watch`
 

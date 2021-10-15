@@ -8,7 +8,6 @@
     DETAILS:
     Run the `git clone` command to download the Neutralino repositories in the following directories.
 
-    - `v2-client-specification` in `spec`
     - `neutralinojs` in `server`
     - `neutralino.js` in `client`
     - `neutralinojs.github.io` in `site`

@@ -3,7 +3,7 @@
     Generate a Markdown file from a NAPI file.
 
     ARGS:
-    - `--apis   <file...>`  Input NAPIs in JSON or YAML format.
+    - `--napis  <file...>`  Input NAPIs in JSON or YAML format.
     - `--outdir <dir>`      Output directory.
     - `--watch`
 
@@ -31,7 +31,7 @@ if (isMain (import.meta))
 
 export function main ()
 {
-    const apifiles = requireArgumentList ('--apifiles')
+    const apifiles = requireArgumentList ('--napis')
     const outdir    = requireArgument ('--outdir')
     const processor = unified().use (stringify, {
         bullet: '*',

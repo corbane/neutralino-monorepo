@@ -38,7 +38,7 @@ test.app:
 # GENERATORS
 
 CMD_DTS  = node tools/@napi.dts  --napis api/*.yaml --outfile $(DTS_OUTFILE)
-CMD_MD   = node tools/@napi.md   --apifiles api/*.yaml --outdir $(MD_OUTDIR)
+CMD_MD   = node tools/@napi.md   --napis api/*.yaml --outdir $(MD_OUTDIR)
 CMD_HTML = node tools/@napi.html --mdfiles out/md/*.md --outdir $(HTML_OUTDIR)
 
 sch:
