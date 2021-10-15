@@ -34,7 +34,6 @@ make quickway
 command | overview
 --- | ---
 [`api.ts.wip`](#apitswip) | 
-[`edit.site`](#editsite) | 
 [`git.clone`](#gitclone) | Initialize Git submodules
 [`js.install`](#jsinstall) | Initialize Node packages
 [`napi.dts`](#napidts) | Generate a Typescript definition file from API files.
@@ -42,15 +41,18 @@ command | overview
 [`napi.md`](#napimd) | Generate a Markdown file from a NAPI file.
 [`napi.sch`](#napisch) | Generate a JSON Schema File from a NAPI File.
 [`readme`](#readme) | Generate this `README.md`
-[`test.app`](#testapp) | Initialize the Neutralino test application
+[`start.site`](#startsite) | 
+[`test.app`](#testapp) | 
 
 ## `api.ts.wip`
 
-**USAGE**
+**WORK IN PROCESS**
 
-```bash
-node makeme api.ts <flags...>
-```
+
+
+**ARGS**
+
+* `<flags...>`
 
 **TODO**
 
@@ -60,14 +62,13 @@ node makeme api.ts <flags...>
 
 [<sub>top</sub>](#command-overview)
 
-## `edit.site`
-
-
-[<sub>top</sub>](#command-overview)
-
 ## `git.clone`
 
 Initialize Git submodules
+
+**ARGS**
+
+* No args
 
 **DETAILS**
 
@@ -78,12 +79,6 @@ Run the `git clone` command to download the Neutralino repositories in the follo
 - `neutralino.js` in `client`
 - `neutralinojs.github.io` in `site`
 
-**USAGE**
-
-```bash
-node makeme git.clone
-```
-
 
 [<sub>top</sub>](#command-overview)
 
@@ -93,12 +88,8 @@ Initialize Node packages
 
 **USAGE**
 
-```bash
-node makeme js.install <packages_manager> <flags...>
-```
-
-- `<packages_manager>` can be oneof `--npm` (default), `--yarn` or `--pnpm`
-- `<flags...>` flags are passed to the package manager and depend on which one you choose.
+* `<packages_manager>` Can be oneof `--npm` (default), `--yarn` or `--pnpm`
+* `<flags...>`         Flags are passed to the package manager and depend on which one you choose.
 
 
 [<sub>top</sub>](#command-overview)
@@ -197,9 +188,16 @@ Generate this `README.md`
 
 [<sub>top</sub>](#command-overview)
 
-## `test.app`
+## `start.site`
 
-Initialize the Neutralino test application
+**WORK IN PROCESS**
+
+
+
+
+[<sub>top</sub>](#command-overview)
+
+## `test.app`
 
 **WORK IN PROGRESS**
 

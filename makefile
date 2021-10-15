@@ -61,7 +61,7 @@ html:
 
 # USE CASE
 
-CMD_START_SITE = node tools/@edit.site --pnpm
+CMD_START_SITE = node tools/@start.site --pnpm
 
 edit.site:
 	$(CMD_MD) --watch & $(CMD_START_SITE)

@@ -2,6 +2,9 @@
     OVERVIEW:
     Initialize Git submodules
 
+    ARGS:
+    * No args
+
     DETAILS:
     Run the `git clone` command to download the Neutralino repositories in the following directories.
 
@@ -9,12 +12,6 @@
     - `neutralinojs` in `server`
     - `neutralino.js` in `client`
     - `neutralinojs.github.io` in `site`
-
-    USAGE:
-
-    ```bash
-    node makeme git.clone
-    ```
 /*/
 //@ts-check
 
