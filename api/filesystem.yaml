@@ -1,0 +1,284 @@
+# yaml-language-server: $schema=./lib/neu-api.json
+$namespace: Neutralino.filesystem
+$description: '`Neutralino.filesystem` namespace contains methods for handling files.'
+
+x-ref: |
+  https://github.com/neutralinojs/neutralinojs.github.io/blob/main/docs/api/filesystem.md
+  https://github.com/neutralinojs/neutralinojs/blob/main/api/filesystem/filesystem.cpp
+  https://github.com/neutralinojs/neutralino.js/blob/main/src/api/filesystem.ts
+
+createDirectory:
+  type: http:post
+  params:
+    $ref: '#/CreateDirectoryOptions'
+  result:
+    $ref: '#/CreateDirectoryResponse'
+  description: |-
+    Creates a new directory.
+
+    ```js
+    Neutralino.filesystem.createDirectory ({
+      path: './newDirectory',
+    });
+    ```
+
+CreateDirectoryOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: New directory path.
+  description: ''
+  
+CreateDirectoryResponse:
+  oneOf:
+    - $ref: '#/CreateDirectorySuccess'
+    - $ref: '#/CreateDirectoryError'
+
+CreateDirectorySuccess:
+  type: object
+  properties:
+    success:
+      type: boolean
+    message:
+      type: string
+  required:
+    - success
+    - message
+
+CreateDirectoryError:
+  type: object
+  properties:
+    error:
+      type: string
+  required:
+    - error
+
+removeDirectory:
+  type: http:post
+  params:
+    $ref: '#/RemoveDirectoryOptions'
+  description: |-
+    Removes given directories.
+
+    ```js
+    await Neutralino.filesystem.removeDirectory({
+      path: './tmpDirectory',
+    });
+    ```
+
+RemoveDirectoryOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: Directory path.
+  required:
+    - path
+
+writeFile:
+  type: http:post
+  params:
+    $ref: '#/WriteFileOptions'
+  description: |-
+    Writes new text files with data.
+
+    ```js
+    await Neutralino.filesystem.writeFile({
+      fileName: './myFile.txt',
+      data: 'Sample content'
+    });
+    ```
+
+WriteFileOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: File name.
+    data:
+      type: string
+      description: Content of the file in string format.
+  required:
+    - path
+    - data
+
+writeBinaryFile:
+  type: http:post
+  params:
+    $ref: '#/WriteBinaryFileOptions'
+  description: |-
+    Writes new binary files with data.
+
+    ```js
+    let rawBin = new ArrayBuffer(1);
+    let view = new Uint8Array(rawBin);
+    view[0] = 64; // Saves ASCII '@' to the binary file
+    await Neutralino.filesystem.writeBinaryFile({
+      fileName: './myFile.bin',
+      data: rawBin
+    });
+    ```
+
+WriteBinaryFileOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: File name.
+    data:
+      type: string
+      description: 'Content of the binary file as an [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).'
+
+readFile:
+  type: http:post
+  params:
+    $ref: '#/ReadFileOptions'
+  description: |-
+    Reads text files.
+
+    ```js
+    let response = await Neutralino.filesystem.readFile({
+      fileName: './myFile.txt'
+    });
+    console.log(`Content: ${response.data}`);
+    ```
+
+ReadFileOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: File name.
+
+readBinaryFile:
+  type: http:post
+  params:
+    $ref: '#/ReadBinaryFileOptions'
+  description: |-
+    Reads binary files.
+
+    ```js
+    let response = await Neutralino.filesystem.readBinaryFile({
+      fileName: './myFile.bin'
+    });
+    let view = new Uint8Array(response.data);
+    console.log('Binary content: ', view);
+    ```
+
+ReadBinaryFileOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: File name.
+
+removeFile:
+  type: http:post
+  params:
+    $ref: '#/RemoveFileOptions'
+  description: |-
+    Removes given file.
+
+    ```js
+    await Neutralino.filesystem.removeFile({
+      fileName: './myFile.txt'
+    });
+    ```
+
+RemoveFileOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: File name.
+
+readDirectory:
+  type: http:post
+  params:
+    $ref: '#/ReadDirectoryOptions'
+  description: |-
+    Reads a whole directory.
+
+    ```js
+    let response = await Neutralino.filesystem.readDirectory({
+      path: NL_PATH
+    });
+    console.log('Content: ', response.entries);
+    ```
+
+ReadDirectoryOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: Directory path
+
+copyFile:
+  type: http:post
+  params:
+    $ref: '#/CopyFileOptions'
+  description: |-
+    Copies a file to a new destination.
+
+    ```js
+    await Neutralino.filesystem.copyFile({
+      source: './source.txt',
+      destination: './destination.txt'
+    });
+    ```
+
+CopyFileOptions:
+  type: object
+  properties:
+    source:
+      type: string
+      description: Source file as a string.
+    destination:
+      type: string
+      description: Destination file as a string.
+
+moveFile:
+  type: http:post
+  params:
+    $ref: '#/MoveFileOptions'
+  description: |-
+    Moves a file to a new destination.
+
+    ```js
+    await Neutralino.filesystem.moveFile({
+      source: './source.txt',
+      destination: './destination.txt'
+    });
+    ```
+
+MoveFileOptions:
+  type: object
+  properties:
+    source:
+      type: string
+      description: Source file as a string.
+    destination:
+      type: string
+      description: Destination file as a string.
+
+getStats:
+  type: http:post
+  params:
+    $ref: '#/GetStatsOptions'
+  description: |-
+    Returns file statistics for the given path. If the given path doesn't exist or is inaccessible, an error is thrown. Therefore, you can use this method to check for the existance of a file or directory.
+
+    ```js
+    let response = await Neutralino.filesystem.getStats({
+      path: './sampleVideo.mp4'
+    });
+    console.log('Stats:', response);
+    ```
+
+GetStatsOptions:
+  type: object
+  properties:
+    path:
+      type: string
+      description: File or directory path.

@@ -3,10 +3,13 @@
         "**/.git"         : true,
         "*.code-workspace": true,
         "**/node_modules" : true,
+        "**/*.no"         : true,
         "server"          : false,
         "bin"             : false,
         "client"          : false,
-        "spec"            : false,
         "site"            : false
-    }
+    },
+    "editor.rulers": [
+        100
+    ]
 }

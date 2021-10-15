@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=./lib/neu-api.json
+$namespace: Neutralino.computer
+$description: '`Neutralino.debug` namespace contains application debugging utilities.'
+
+x-ref: |
+  https://github.com/neutralinojs/neutralinojs.github.io/blob/main/docs/api/computer.md
+  https://github.com/neutralinojs/neutralinojs/blob/main/api/computer/computer.cpp
+  https://github.com/neutralinojs/neutralino.js/blob/main/src/api/computer.ts
+
+getMemoryInfo:
+  type: http:get
+  params:
+    $ref: '#/GetMemoryInfoResponse'
+  description: |-
+    Provides physical memory details (in megabytes).
+
+    ```js
+    Neutralino.computer.getMemoryInfo()
+      .then (ramInfo => `Your ram size: ${Math.round(ramInfo.total / 1000000)}GB`)
+    ```
+
+GetMemoryInfoResponse:
+  type: object
+  properties:
+    success:
+      type: boolean
+    returnValue:
+      $ref: '#/GetMemoryInfoResult'
+  required:
+    - success
+    - returnValue
+
+GetMemoryInfoResult:
+  type: object
+  properties:
+    total:
+      type: number
+      description: Total physical memory.
+    available:
+      type: number
+      description: Available physical memory.
+  required:
+    - total
+    - available

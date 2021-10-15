@@ -2,6 +2,9 @@
 	"name": "neutralino-api-types",
 	"version": "1.5.0",
 	"type": "module",
+	"bin": {
+		"makeme": "./makeme.js"
+	},
 	"devDependencies": {
 		"@apidevtools/json-schema-ref-parser": "^9.0.9",
 		"@types/node": "^16.10.2",
@@ -11,13 +14,26 @@
 		"ts-json-schema-generator": "^0.96.0",
 		"yaml": "^1.10.2"
 	},
-	"scripts": {
-		"build": "rollup --format=cjs -o ../run.js cmd-buildme.js"
-	},
 	"dependencies": {
 		"@types/json-schema": "^7.0.9",
+		"@types/prismjs": "^1.16.6",
+		"commander": "^8.2.0",
+		"hast-util-to-html": "^8.0.2",
+		"hastscript": "^7.0.2",
 		"json-schema-to-markdown": "^1.1.1",
 		"json-schema-view-js": "^2.0.1",
-		"shelljs": "^0.8.4"
+		"mdast-builder": "^1.1.1",
+		"mdast-util-from-markdown": "^1.0.4",
+		"mdast-util-frontmatter": "^1.0.0",
+		"mdast-util-to-hast": "^12.0.0",
+		"mdast-util-to-markdown": "^1.2.3",
+		"mdast-util-to-string": "^3.1.0",
+		"micromark": "^3.0.7",
+		"micromark-extension-directive": "^2.0.3",
+		"micromark-extension-frontmatter": "^1.0.0",
+		"remark-stringify": "^10.0.0",
+		"shelljs": "^0.8.4",
+		"unified": "^10.1.0",
+		"unist-builder": "^3.0.0"
 	}
 }

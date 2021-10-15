@@ -2,14 +2,13 @@
 
 Various tools to make Neutralino API dependencies consistent.
 
-```txt
-                 ┌─> out/neutralino.config.schema.json
-spec/api/*.yaml ─┼─> client/src/http/neutralino.messages.d.ts
-                 └─> site/docs/api/*.md
+From a single definition, it is possible to generate:
 
-spec/models/*.yaml ─┬─> site/docs/configuration/neutralino.config.schema.json
-                    └─> server/resources/neutralino.config.schema.json
-```
+- Markdown files for the site
+- Typescript definition of server messages
+- Schema of `neutralino.config.json`
+- Test application
+
 
 **NOTE** 
 
@@ -17,144 +16,40 @@ These script can use:
 - wildcards `*` in path patterns
 - sequential commands with `&&`
 - parallel commands with `&`
-- shebang `#!`
 
 If like me you don't have a LINUX compatible terminal, a simple way is to use [Git bash](https://git-scm.com/downloads).
+
+To facilitate the operation you must have Gnu Make on your system.
+If you are on Windows, you can install this [complete package, except sources](http://gnuwin32.sourceforge.net/packages/make.htm)
 
 ## The quick way
 
 ```bash
 git clone https://github.com/corbane/neutralino-monorepo.git
 cd neutralino-monorepo
-
-npm install # you can use also yarn or pnpm package manager
- 
-# download sources of Neutralino
-node makeme git.clone
-
-# run npm on downloaded subfolders
-node makeme js.install --npm # or --yarn or --pnpm
-
-# Generate a bundled JSON API
-node makeme api.json --apis spec/api/*.yaml --outfile out/neutralino.messages.json
-
-# initialize a test application
-node makeme test.app
-
-# run the app
-neu run
+make quickway
 ```
 ## Command overview
 
 command | overview
 --- | ---
-[`api.json`](#apijson) | Bundle API JSON or YAML files into a single JSON file
-[`api.md`](#apimd) | Create Markdown files from API files.
-[`api.ts.def`](#apitsdef) | Convert a JSON API file to a Typescript definition file
-[`api.ts`](#apits) | Compile the js client library
+[`api.ts.wip`](#apitswip) | 
+[`edit.site`](#editsite) | 
 [`git.clone`](#gitclone) | Initialize Git submodules
 [`js.install`](#jsinstall) | Initialize Node packages
+[`napi.dts`](#napidts) | Generate a Typescript definition file from API files.
+[`napi.html`](#napihtml) | Generate a HTML file from a NAPI file.
+[`napi.md`](#napimd) | Generate a Markdown file from a NAPI file.
+[`napi.sch`](#napisch) | Generate a JSON Schema File from a NAPI File.
 [`readme`](#readme) | Generate this `README.md`
-[`schema.json`](#schemajson) | Convert a JSON/YAML schema to a flattened JSON schema
-[`schema.md`](#schemamd) | Convert a JSON/YAML schema to a Markdown file
 [`test.app`](#testapp) | Initialize the Neutralino test application
 
-## `api.json`
-
-Bundle API JSON or YAML files into a single JSON file
-
-**DETAILS**
-
-This command is a pre-process before the other tools.
-
-OpenApi files are YAML files that support JSON references for easy writing, but some tools do not support this. \
-For this reason it is necessary to flatten the references and make sure that they do not contain cyclic references
+## `api.ts.wip`
 
 **USAGE**
 
 ```bash
-node makeme api.json --apis <path[]> --outfile <path>
-```
-
-- `--apis` Input OpenAPI files in JSON or YAML format.
-- `--outfile` Output JSON file
-
-**FOR NEUTRALINO**
-
-```bash
-node makeme api.json --apis spec/api/*.yaml --outfile out/neutralino.messages.json
-```
-
-> The `api.ts.def` command and the test application need this file.
-
-**WARNING**
-
-Wildcard `*` must be resolved by the terminal.
-
-
-[<sub>top</sub>](#command-overview)
-
-## `api.md`
-
-Create Markdown files from API files.
-
-**USAGE**
-
-```bash
-node makeme api.md --apis <path[]> --outdir <path> [--watch]
-```
-
-- `--apis` Input OpenAPI files in JSON or YAML format.
-
-- `--outdir` Output directory.
-
-**FOR NEUTRALINO**
-
-Generate site Markdown files:
-
-```bash
-node makeme api.md  --apis spec/api/*.yaml  --outdir site/docs/api
-```
-
-**WARNING**
-
-Wildcard `*` must be resolved by the terminal.
-
-
-[<sub>top</sub>](#command-overview)
-
-## `api.ts.def`
-
-Convert a JSON API file to a Typescript definition file
-
-**USAGE**
-
-```bash
-node makeme api.ts.def  --api <path>  --outfile <path>
-```
-
-- `--api` OpenAPI JSON input file
-- `--outfile` TypeScript definition output file
-
-**FOR NEUTRALINO**
-
-This command is used to create the `neutralino.messages.d.ts` file to add type checking to the client API's `request` function.
-
-```bash
-node makeme api.ts.def  --api out/neutralino.messages.json  --outfile client/src/http/neutralino.messages.d.ts
-```
-
-
-[<sub>top</sub>](#command-overview)
-
-## `api.ts`
-
-Compile the js client library
-
-**USAGE**
-
-```bash
-node makeme api.ts
+node makeme api.ts <flags...>
 ```
 
 **TODO**
@@ -165,17 +60,16 @@ node makeme api.ts
 
 [<sub>top</sub>](#command-overview)
 
+## `edit.site`
+
+
+[<sub>top</sub>](#command-overview)
+
 ## `git.clone`
 
 Initialize Git submodules
 
-**USAGE**
-
-```bash
-node makeme git.clone
-```
-
-**DESCRIPTION**
+**DETAILS**
 
 Run the `git clone` command to download the Neutralino repositories in the following directories.
 
@@ -183,6 +77,12 @@ Run the `git clone` command to download the Neutralino repositories in the follo
 - `neutralinojs` in `server`
 - `neutralino.js` in `client`
 - `neutralinojs.github.io` in `site`
+
+**USAGE**
+
+```bash
+node makeme git.clone
+```
 
 
 [<sub>top</sub>](#command-overview)
@@ -203,44 +103,69 @@ node makeme js.install <packages_manager> <flags...>
 
 [<sub>top</sub>](#command-overview)
 
-## `readme`
+## `napi.dts`
 
-Generate this `README.md`
+Generate a Typescript definition file from API files.
 
-**USAGE**
+**ARGS**
 
-```bash
-node makeme readme --cmddir <path> --intro wpath> --outfile <path> [--watch]
-```
+- `--napis   <file...>` Input NAPIs in JSON or YAML format.
+- `--outfile <file>`    TypeScript definition output file.
+- `--watch`
 
-**FOR NEUTRALINO**
+**DETAILS**
 
-```bash
-node makeme readme --cmddir ./tools --intro tools/INTRO.md --outfile ./README.md
-```
+This command is used to create the `neutralino.messages.d.ts`
+file to add type checking to the client API's `request` function.
 
 
 [<sub>top</sub>](#command-overview)
 
-## `schema.json`
+## `napi.html`
 
-Convert a JSON/YAML schema to a flattened JSON schema
+Generate a HTML file from a NAPI file.
 
-**USAGE**
 
-```bash
-node makeme schema.json --schemas <path[]>  --outdir <path>
-```
+[<sub>top</sub>](#command-overview)
 
-**FOR NEUTRALINO**
+## `napi.md`
+
+Generate a Markdown file from a NAPI file.
+
+**ARGS**
+
+- `--apis   <file...>`  Input NAPIs in JSON or YAML format.
+- `--outdir <dir>`      Output directory.
+- `--watch`
+
+**DETAILS**
+
+This command is used to create the Markdown source files.
+- https://neutralino.js.org/docs/configuration/neutralino.config.md
+- https://neutralino.js.org/docs/api/*.md
+
+**Note:** The output file name is different than the existing.
+- currently: `neutralino.config.json.md`
+- output: `neutralino.config.schema.md`
+
+
+[<sub>top</sub>](#command-overview)
+
+## `napi.sch`
+
+Generate a JSON Schema File from a NAPI File.
+
+**ARGS**
+
+- `--napis  <file...>` Input NAPIs in JSON or YAML format.
+- `--outdir <path>`    Output directory.
+- `--watch`
+
+**DETAILS**
 
 This command is used to create the `neutralino.config.schema.json` file.
 
-```bash
-node makeme schema.json --schemas spec/models/*.schema.yaml --outdir out/
-```
-
-This allows you to have a completion when editing the `neutralino.config.json` file. \
+This allows you to have a completion when editing the `neutralino.config.json` file.
 Only if the IDE supports this feature and if `neutralino.config.json` has a `$schema` field like:
 
 ```json
@@ -252,39 +177,22 @@ Only if the IDE supports this feature and if `neutralino.config.json` has a `$sc
 ```
 
 The actual value of `<DIR>` must be defined, the schema can be, for example:
-- served by the site `https://neutralino.js.org/v2/neutralino.config.schema.json`
+- served by the site like `https://neutralino.js.org/v2/neutralino.config.schema.json`
 - or included in the resource directory `./resources/neutralino.config.schema.json`
 
 
 [<sub>top</sub>](#command-overview)
 
-## `schema.md`
+## `readme`
 
-Convert a JSON/YAML schema to a Markdown file
+Generate this `README.md`
 
-**WORK IN PROGRESS**
+**ARGS**
 
-
-
-**USAGE**
-
-```bash
-node makeme schema.md --schemas <path[]> --outdir <path>
-```
-
-**FOR NEUTRALINO**
-
-This command is used to create the [neutralino.config.json](https://neutralino.js.org/docs/configuration/neutralino.config.json) markdown page.
-
-```bash
-node makeme schema.md --schemas spec/models/neutralino.config.schema.yaml --outdir site/docs/configuration/
-```
-
-**NOTE**
-
-The output file name is different than the existing.
-- currently: `neutralino.config.json.md`
-- output: `neutralino.config.schema.md`
+* `--cmddir  <path>`
+* `--intro   <file>`
+* `--outfile <file>`
+* `[--watch]`
 
 
 [<sub>top</sub>](#command-overview)
@@ -296,12 +204,6 @@ Initialize the Neutralino test application
 **WORK IN PROGRESS**
 
 
-
-**USAGE**
-
-```bash
-node makeme test.app
-```
 
 
 [<sub>top</sub>](#command-overview)

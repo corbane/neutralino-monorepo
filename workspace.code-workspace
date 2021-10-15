@@ -10,9 +10,6 @@
 			"path": "client"
 		},
 		{
-			"path": "spec"
-		},
-		{
 			"path": "."
 		}
 	],

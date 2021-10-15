@@ -2,14 +2,13 @@
 
 Various tools to make Neutralino API dependencies consistent.
 
-```txt
-                 ┌─> out/neutralino.config.schema.json
-spec/api/*.yaml ─┼─> client/src/http/neutralino.messages.d.ts
-                 └─> site/docs/api/*.md
+From a single definition, it is possible to generate:
 
-spec/models/*.yaml ─┬─> site/docs/configuration/neutralino.config.schema.json
-                    └─> server/resources/neutralino.config.schema.json
-```
+- Markdown files for the site
+- Typescript definition of server messages
+- Schema of `neutralino.config.json`
+- Test application
+
 
 **NOTE** 
 
@@ -17,7 +16,6 @@ These script can use:
 - wildcards `*` in path patterns
 - sequential commands with `&&`
 - parallel commands with `&`
-- shebang `#!`
 
 If like me you don't have a LINUX compatible terminal, a simple way is to use [Git bash](https://git-scm.com/downloads).
 

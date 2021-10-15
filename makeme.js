@@ -1,12 +1,10 @@
 
-
-
 //@ts-check
 
 import Fs from 'fs'
 import Path from 'path'
 import { fileURLToPath }  from 'url'
-import { getScriptsFrom, getScript, CMD_PREFIX, CMD_EXT } from './tools/lib.js'
+import { getScriptsFrom, getScript, CMD_PREFIX, CMD_EXT } from './tools/lib/cmd.js'
 
 //@ts-ignore
 export const __dirname  = Path.dirname (fileURLToPath (import.meta.url))

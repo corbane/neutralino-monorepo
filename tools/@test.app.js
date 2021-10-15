@@ -3,14 +3,7 @@
     Initialize the Neutralino test application
 
     WORK_IN_PROGRESS:
-
-    USAGE:
-
-    ```bash
-    node makeme test.app
-    ```
 /*/
-
 //@ts-check
 
 import { execSync } from 'child_process'

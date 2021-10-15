@@ -2,35 +2,27 @@
     OVERVIEW:
     Generate this `README.md`
 
-    USAGE:
+    ARGS:
+    * `--cmddir  <path>`
+    * `--intro   <file>`
+    * `--outfile <file>`
+    * `[--watch]`
 
-    ```bash
-    node makeme readme --cmddir <path> --intro wpath> --outfile <path> [--watch]
-    ```
-
-    FOR_NEUTRALINO:
-
-    ```bash
-    node makeme readme --cmddir ./tools --intro tools/INTRO.md --outfile ./README.md
-    ```
 /*/
-
 //@ts-check
 
 import Fs from 'fs'
 import Path from 'path'
 import chokidar from 'chokidar'
-import {
-    optionalArgument, requireArgument, hasArgument,
-    getScriptsFrom,
-    writeFile
-} from './lib.js'
+import { writeFile } from './lib/io.js'
+import { optionalArgument, requireArgument, hasArgument, getScriptsFrom, isMain } from './lib/cmd.js'
 
 /**
-    @typedef {import ('./lib').Script} Script
+    @typedef {import ('./lib/cmd').Script} Script
 */
 
 
+if (isMain (import.meta)) main ()
 export function main ()
 {
     const cmddir  = Path.resolve (requireArgument ('--cmddir'))

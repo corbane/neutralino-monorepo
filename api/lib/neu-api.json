@@ -1,0 +1,581 @@
+{
+  "$ref": "#/definitions/Napi",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "AnyOf": {
+      "additionalProperties": false,
+      "properties": {
+        "anyOf": {
+          "items": {
+            "$ref": "#/definitions/Ref"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "anyOf"
+      ],
+      "type": "object"
+    },
+    "EventItem": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Ref"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "const": "js:event",
+          "type": "string"
+        }
+      },
+      "required": [
+        "data",
+        "type"
+      ],
+      "type": "object"
+    },
+    "Item": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/MethodItem"
+        },
+        {
+          "$ref": "#/definitions/RequestItem"
+        },
+        {
+          "$ref": "#/definitions/EventItem"
+        },
+        {
+          "$ref": "#/definitions/SchemaItem"
+        }
+      ]
+    },
+    "MethodItem": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/definitions/Ref"
+        },
+        "result": {
+          "$ref": "#/definitions/Ref"
+        },
+        "type": {
+          "const": "js:method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "Napi": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Item"
+      },
+      "properties": {
+        "$description": {
+          "type": "string"
+        },
+        "$namespace": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "$description",
+        "$namespace"
+      ],
+      "type": "object"
+    },
+    "OneOf": {
+      "additionalProperties": false,
+      "properties": {
+        "oneOf": {
+          "items": {
+            "$ref": "#/definitions/Ref"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "oneOf"
+      ],
+      "type": "object"
+    },
+    "Ref": {
+      "additionalProperties": false,
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "$ref"
+      ],
+      "type": "object"
+    },
+    "RequestItem": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "params": {
+          "$ref": "#/definitions/Ref"
+        },
+        "result": {
+          "$ref": "#/definitions/Ref"
+        },
+        "type": {
+          "enum": [
+            "http:post",
+            "http:get"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "Schema": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Type"
+        },
+        {
+          "$ref": "#/definitions/TypeObject"
+        },
+        {
+          "$ref": "#/definitions/SubSchema"
+        }
+      ]
+    },
+    "SchemaItem": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/AnyOf"
+        },
+        {
+          "$ref": "#/definitions/OneOf"
+        },
+        {
+          "$ref": "#/definitions/TypeObject"
+        }
+      ]
+    },
+    "SubSchema": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/AnyOf"
+        },
+        {
+          "$ref": "#/definitions/OneOf"
+        }
+      ]
+    },
+    "Type": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Ref"
+        },
+        {
+          "$ref": "#/definitions/TypeArray"
+        },
+        {
+          "$ref": "#/definitions/TypeNull"
+        },
+        {
+          "$ref": "#/definitions/TypeBoolean"
+        },
+        {
+          "$ref": "#/definitions/TypeNumeric"
+        },
+        {
+          "$ref": "#/definitions/TypeString"
+        }
+      ]
+    },
+    "TypeArray": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "default": {
+              "items": {
+              },
+              "type": "array"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enum": {
+              "items": {
+                "items": {
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "items": {
+              "$ref": "#/definitions/Type"
+            },
+            "maxItems": {
+              "type": "number"
+            },
+            "minItems": {
+              "type": "number"
+            },
+            "type": {
+              "const": "array",
+              "type": "string"
+            },
+            "uniqueItems": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "items",
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "const": {
+              "items": {
+              },
+              "type": "array"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "items": {
+              "$ref": "#/definitions/Type"
+            },
+            "maxItems": {
+              "type": "number"
+            },
+            "minItems": {
+              "type": "number"
+            },
+            "type": {
+              "const": "array",
+              "type": "string"
+            },
+            "uniqueItems": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "items",
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "TypeBoolean": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "default": {
+              "type": "boolean"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enum": {
+              "items": {
+                "type": "boolean"
+              },
+              "type": "array"
+            },
+            "type": {
+              "const": "boolean",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "const": {
+              "type": "boolean"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "type": {
+              "const": "boolean",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "TypeNull": {
+      "additionalProperties": false,
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "const": "null",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "TypeNumeric": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "default": {
+              "type": "number"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enum": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "maximum": {
+              "type": "number"
+            },
+            "minimum": {
+              "type": "number"
+            },
+            "multipleOf": {
+              "type": "number"
+            },
+            "type": {
+              "enum": [
+                "integer",
+                "number"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "const": {
+              "type": "string"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "maximum": {
+              "type": "number"
+            },
+            "minimum": {
+              "type": "number"
+            },
+            "multipleOf": {
+              "type": "number"
+            },
+            "type": {
+              "enum": [
+                "integer",
+                "number"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "TypeObject": {
+      "additionalProperties": false,
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/definitions/Schema"
+          },
+          "type": "object"
+        },
+        "required": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "const": "object",
+          "type": "string"
+        }
+      },
+      "required": [
+        "properties",
+        "type"
+      ],
+      "type": "object"
+    },
+    "TypeString": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "default": {
+              "type": "string"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enum": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "maxLength": {
+              "type": "number"
+            },
+            "minLength": {
+              "type": "number"
+            },
+            "pattern": {
+              "type": "string"
+            },
+            "type": {
+              "const": "string",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "const": {
+              "type": "string"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "maxLength": {
+              "type": "number"
+            },
+            "minLength": {
+              "type": "number"
+            },
+            "pattern": {
+              "type": "string"
+            },
+            "type": {
+              "const": "string",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  }
+}

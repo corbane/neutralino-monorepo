@@ -1,25 +1,115 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Elements in HTML</title>
-    <script src="./stoplight-elements-7.3.6-web-components.min.js"></script>
-    <link rel="stylesheet" href="./stoplight-elements-7.3.6-styles.min.css">
-    <style>
-      body {
-        padding: 10px;
-      }
-    </style>
-  </head>
-  <body>
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./lib/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="./lib/prism.css" rel="stylesheet" />
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Raleway", sans-serif
+    }
+</style>
 
-    <!-- https://github.com/stoplightio/elements/blob/main/docs/getting-started/usage/web-component.md -->
-    <elements-api
-    apiDescriptionUrl="/out/neutralino.messages.json"
-    router="hash"
-    layout="sidebar"
-    ></elements-api>
+<body class="light-grey">
+
+    <!-- Sidebar/menu -->
+    <nav
+        id="sidebar"
+        class="sidebar bar-block white collapse top"
+        style="z-index:3;width:250px; overflow: scroll;">
+
+        <!-- Sidebar Header -->
+        <div
+            class="container display-container padding-16">
+            <i
+                id="sidebar-close-buttun"
+                onclick="w3_close()"
+                class="fa fa-remove hide-large button display-topright"></i>
+            <h3
+                class="wide">
+                <b>LOGO</b>
+            </h3>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <div
+            id="sidemenu"
+            class="padding-64 large text-grey"
+            style="font-weight:bold">
+        </div>
+
+        <!-- Sidebar Footer -->
+        <a
+            href="#footer" class="bar-item button padding">
+            Contact
+        </a>
+        <a 
+            href="javascript:void(0)"
+            class="bar-item button padding"
+            onclick="document.getElementById('newsletter').style.display='block'">
+            Newsletter
+        </a>
+        <a
+            href="#footer"
+            class="bar-item button padding">
+            Subscribe
+        </a>
+
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header
+        class="bar hide-large xlarge"
+        style="position: absolute;">
+        <span
+            id="sidebar-main-buttun"
+            class="bar-item button padding-24">
+            <i class="fa fa-bars"></i>
+        </span>
+    </header>
+    
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div
+        id="sidebar-overlay"
+        class="overlay hide-large"
+        style="cursor:pointer"
+        title="close side menu"></div>
+
+    <div class="main" style="margin-left:250px">
+
+        <!-- Header -->
+        <header class="container center padding-32">
+            <h1><b>Neutralino</b></h1>
+            <p>Welcome to the <span class="tag">Demo App</span></p>
+        </header>
+
+        <!-- Grid -->
+        <div class="row">
+            <div class="col">
+
+                <div class="card-4 margin white">
+                    <div class="container" id="page-content">
+                        <!---->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="container padding-32 margin-top">
+            <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+        </footer>
+
+
+    </div>
 
     <script src="js/neutralino.js"></script>
     <script>
@@ -28,7 +118,9 @@
           Neutralino.app.exit()
       })
     </script>
-    <script src="./index.js"></script>
+    <script src="./lib/prism.js" data-manual></script>
+    <script type="module" src="./index.js"></script>
 
-  </body>
+</body>
+
 </html>

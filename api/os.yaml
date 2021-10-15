@@ -1,0 +1,369 @@
+# yaml-language-server: $schema=./lib/neu-api.json
+$namespace: Neutralino.os
+$description: '`Neutralino.os` namespace contains methods related to the user''s operating system.'
+
+x-ref: |
+  - 'https://github.com/neutralinojs/neutralinojs.github.io/blob/main/docs/api/os.md'
+  - 'https://github.com/neutralinojs/neutralinojs/blob/main/api/os/os.cpp'
+  - 'https://github.com/neutralinojs/neutralino.js/blob/main/src/api/os.ts'
+
+execCommand:
+  type: http:post
+  params:
+    $ref: '#/ExecCommandParams'
+  result:
+    $ref: '#/ExecCommandResult'
+  description: |-
+    Executes a command and returns the output.
+
+    ```js
+    Neutralino.os.execCommand ('python --version')
+    ```
+
+ExecCommandParams:
+  type: object
+  properties:
+    command:
+      type: string
+      description: The command that is to be executed.
+    shouldRunInBackground:
+      type: boolean
+  required:
+    - command
+
+ExecCommandResult:
+  type: object
+  properties:
+    success:
+      type: boolean
+    output:
+      type: string
+      description: String data taken from the both standard output (STDOUT) and standard error (STDERR) streams of the command's process.
+  required:
+    - success
+    - output
+
+getEnv:
+  type: http:post
+  params:
+    $ref: '#/GetEnvarParams'
+  result:
+    $ref: '#/GetEnvarResult'
+  description: |-
+    Provides the value of a given environment variable.
+
+    ```js
+    Neutralino.os.getEnv('USER')
+      .then (response => `USER = ${response.value}`);
+    ```
+
+GetEnvarParams:
+  type: object
+  properties:
+    key:
+      type: string
+      description: The name of the environment variable.
+  required:
+    - key
+
+GetEnvarResult:
+  type: object
+  properties:
+    success:
+      type: boolean
+    returnValue:
+      type: string
+      description: Value of the given environment variable.
+  required:
+    - success
+    - returnValue
+
+showOpenDialog:
+  type: http:post
+  params:
+    $ref: '#/DialogOpenParams'
+  result:
+    $ref: '#/DialogOpenResult'
+  description: |-
+    Shows the file open dialog.
+
+    ```js
+    let response = await Neutralino.os.showDialogOpen({
+      title: 'Select a folder',
+      isDirectoryMode: true
+    });
+    console.log(`You've selected: ${response.selectedEntry}`);
+    ```
+
+DialogOpenParams:
+  type: object
+  properties:
+    title:
+      type: string
+      description: Title of the dialog.
+    isDirectoryMode:
+      type: boolean
+      description: A boolean value to allow directories to be selected. The default value is `false`.
+    filter:
+      type: array
+      items:
+        type: string
+      description: 'An array of file extensions to filter the file list.  Eg: `filter: [''js'', ''ts'', ''*'']`.'
+  required:
+    - title
+
+DialogOpenResult:
+  type: object
+  properties:
+    success:
+      type: boolean
+    returnValue:
+      type: string
+      description: The selected value (a folder or directory).
+  required:
+    - success
+    - returnValue
+
+showSaveDialog:
+  type: http:post
+  params:
+    $ref: '#/ShowSaveDialogParams'
+  result:
+    $ref: '#/ShowSaveDialogResult'
+  description: |-
+    Shows the file save dialog.
+
+    ```js
+    let response = await Neutralino.os.showSaveDialog({
+      title: 'Save to a file'
+    });
+    console.log(`You've selected: ${response.selectedEntry}`);
+    ```
+
+ShowSaveDialogParams:
+  type: object
+  properties:
+    title:
+      type: string
+      description: Title of the dialog.
+  required:
+    - title
+
+ShowSaveDialogResult:
+  type: object
+  properties:
+    success:
+      type: boolean
+    returnValue:
+      type: string
+      description: The selected value (a folder or directory).
+  required:
+    - success
+    - returnValue
+
+showNotification:
+  type: http:post
+  params:
+    $ref: '#/ShowNotificationParams'
+  result:
+    $ref: '#/ShowNotificationResult'
+  description: |-
+    Displays a notification message.
+    ```js
+    await Neutralino.os.showNotification({
+      summary: 'Hello world',
+      body: 'It works!. Have a nice day'
+    });
+    ```
+
+ShowNotificationParams:
+  type: object
+  properties:
+    title:
+      type: string
+      description: Title of the dialog.
+    content:
+      type: string
+      description: Content of the notification.
+  required:
+    - title
+    - content
+
+ShowNotificationResult:
+  type: object
+  properties:
+    success:
+      type: boolean
+  required:
+    - success
+
+showMessageBox:
+  type: http:post
+  params:
+    $ref: '#/ShowMessageBoxParams'
+  result:
+    $ref: '#/ShowMessageBoxResult'
+  description: Displays a message box.
+
+ShowMessageBoxParams:
+  type: object
+  properties:
+    title:
+      type: string
+      description: Title of the message box.
+    content:
+      type: string
+      description: Content of the message box.
+    type:
+      type: string
+      enum:
+        - WARN
+        - ERROR
+        - INFO
+        - QUESTION
+      description: 'Message box type. Accepted values are `WARN`, `ERROR`, `INFO`, and `QUESTION`.'
+
+ShowMessageBoxResult:
+  type: object
+  properties:
+    success:
+      type: boolean
+  required:
+    - success
+
+setTray:
+  type: http:post
+  params:
+    $ref: '#/SetTrayParams'
+  result:
+    $ref: '#/SetTrayResult'
+  description: |-
+    Creates/updates the tray icon and menu.
+    ```js
+    let tray = {
+      icon: '/resources/icons/trayIcon.png',
+      menuItems: [
+        {id: "about", text: "About"},
+        {text: "-"},
+        {id: "quit", text: "Quit"}
+      ]
+    };
+    await Neutralino.os.setTray(tray);
+    ```
+   
+SetTrayParams:
+  type: object
+  properties:
+    icon:
+      type: string
+    menu:
+      type: array
+      items:
+        $ref: '#/TrayItem'
+
+TrayItem:
+  type: object
+  properties:
+    text:
+      type: string
+      description: Label of the menu item. This field is a mandatory field. Use `-` (hyphen) character for a menu separator.
+    id:
+      type: string
+      description: A unique identifier for each menu item.
+    isDisabled:
+      type: boolean
+      description: A boolean flag to disable/enable a specific menu item.
+    isChecked:
+      type: boolean
+      description: A boolean flag to mark a specific menu item as selected.
+  required:
+    - text
+
+SetTrayResult:
+  type: object
+  properties:
+    success:
+      type: boolean
+  required:
+    - success
+
+open:
+  type: http:post
+  params:
+    $ref: '#/OpenParams'
+  result:
+    $ref: '#/OpenResult'
+  description: |-
+    Opens a URL with the default web browser.
+
+    :::tip
+    If your application is running in the default web browser, this method will open a new tab.
+    :::
+
+OpenParams:
+  type: object
+  properties:
+    url:
+      type: string
+      description: URL to be opened (required).
+  required:
+    - url
+
+OpenResult:
+  type: object
+  properties:
+    success:
+      type: boolean
+  required:
+    - success
+
+getPath:
+  type: http:post
+  params:
+    $ref: '#/GetPathParams'
+  result:
+    $ref: '#/GetPathResult'
+  description: ''
+   
+GetPathParams:
+  type: object
+  properties:
+    name:
+      type: string
+      enum:
+        - config
+        - data
+        - cache
+        - documents
+        - pictures
+        - music
+        - video
+        - downloads
+        - saveGames1
+        - saveGames2
+  required:
+    - name
+
+GetPathResult:
+  oneOf:
+    - $ref: '#/GetPathSuccess'
+    - $ref: '#/GetPathError'
+
+GetPathSuccess:
+  type: object
+  properties:
+      success:
+        type: boolean
+      returnValue:
+        type: string
+  required:
+    - success
+    - returnValue
+
+GetPathError:
+  type: object
+  properties:
+      error:
+        type: string
+  required:
+    - error
