@@ -7,7 +7,6 @@
     * `--intro   <file>`
     * `--outfile <file>`
     * `[--watch]`
-
 /*/
 //@ts-check
 

@@ -22,13 +22,11 @@ import { readYamlFile, writeFile } from './lib/io.js'
 import { visitObject } from './lib/obj.js'
 import { isMain, hasArgument, requireArgument, requireArgumentList } from '../tools/lib/cmd.js'
 
-/**
-    @typedef {
-        ReturnType <typeof splitRefPath> &
-        { doc: NapiDocument }
-    } ExternalDoc 
-*/
-
+const HEADER =
+`// !!! This file is generate by a script, do not modify it. !!!
+//
+// Message definition for Neutralino client API.
+`/*HEADER*/
 
 if (isMain (import.meta))
     main ()
@@ -66,6 +64,12 @@ export async function main ()
 
 
 /**
+ * @typedef {{ doc: NapiDocument } &
+ *     ReturnType <typeof splitRefPath>
+ * } ExternalDoc 
+ */
+
+/**
  * @param {NapiDocument[]} apidocs
  */
 async function formatApis (apidocs)
@@ -78,6 +82,8 @@ async function formatApis (apidocs)
 
     /** @type {ExternalDoc[]} */
     const externals = []
+
+    // [namespace nsA { ... }, namespace nsB { ... }, ...]
     const contents = await Promise.all (
         apidocs.map (async doc =>
         {
@@ -87,15 +93,20 @@ async function formatApis (apidocs)
         })
     )
 
-    var requests = 'export type Requests = ' + apidocs.map (
+    // export type Requests = nsA.Requests & nsB.Requests & ...
+    const requests = 'export type Requests = ' + apidocs.map (
         doc => moduleName (doc.path) + '.Requests'
     ).join (' & ')
 
+    // [module "dist/lib/my-schema.yaml" { ... }, module "file2.json" { ... }, ...]
     const externdts = await Promise.all (
         externals.map (entry => formatModule ("'" + entry.fspath + "'", entry.doc))
     )
 
-    return '\n' + requests + '\n\n' + contents.join ('\n\n') + '\n\n' + externdts
+    return HEADER + '\n'
+         + requests + '\n\n'
+         + contents.join ('\n\n') + '\n\n'
+         + externdts
 }
 
 /**

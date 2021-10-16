@@ -138,10 +138,10 @@ readFile:
     Reads text files.
 
     ```js
-    let response = await Neutralino.filesystem.readFile({
+    Neutralino.filesystem.readFile({
       fileName: './myFile.txt'
-    });
-    console.log(`Content: ${response.data}`);
+    }).then (response => console.log(`Content: ${response.data}`))
+    
     ```
 
 ReadFileOptions:

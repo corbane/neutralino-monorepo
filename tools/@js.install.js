@@ -39,9 +39,6 @@ export function main ()
 	run (`cd client &&  ${pm} install ${flags}`)
 	run (`cd site   &&  ${pm} install ${flags}`)
 	run (`cd tools  &&  ${pm} install ${flags}`)
-    
-    // if this package is not a root dependency, Docusaurus fails to build
-    // ${pm} install url-loader
 }
 
 function run (command)

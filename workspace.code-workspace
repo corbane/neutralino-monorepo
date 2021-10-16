@@ -10,8 +10,17 @@
 			"path": "client"
 		},
 		{
+			"path": "cli"
+		},
+		{
+			"path": "tools"
+		},
+		{
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "neutralino-monorepo",
+		"previewjsdoc.output": "docs"
+	}
 }

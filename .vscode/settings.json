@@ -4,12 +4,11 @@
         "*.code-workspace": true,
         "**/node_modules" : true,
         "**/*.no"         : true,
-        "server"          : false,
-        "bin"             : false,
-        "client"          : false,
-        "site"            : false
-    },
-    "editor.rulers": [
-        100
-    ]
+        "server"          : true,
+        "bin"             : true,
+        "client"          : true,
+        "site"            : true,
+        "cli"             : true,
+        "tools"           : true
+    }
 }

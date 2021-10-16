@@ -14,31 +14,6 @@
 /*/
 //@ts-check
 
-/**
-    @command
- 
-    Initialize Git submodules
-    
-    @arg {string}  apis    -a <file...>   = api/*.yaml  YAML/JSON Napi files
-    @arg {string}  outdir  -d <directory> = out/json/   Output directory where write the generated files
-    @arg {boolean} [watch] -w
-
-    @description
-
-    Run the `git clone` command to download the Neutralino repositories in the following directories.
-
-    - `v2-client-specification` in `spec`
-    - `neutralinojs` in `server`
-    - `neutralino.js` in `client`
-    - `neutralinojs.github.io` in `site`
-*/
-function test (apis, outdir, watch)
-{
-
-}
-
-//@ts-check
-
 import Fs from 'fs'
 import Path from 'path'
 import { execSync } from 'child_process'
@@ -53,12 +28,12 @@ export function main ()
 {
     const co = 'https://github.com/corbane'
     const ne = 'https://github.com/neutralinojs'
-
-    gitClone (co + '/neutralino.js.git'          , Path.join (ROOT_DIR, 'client'))
+    
+    gitClone (ne + '/neutralino.js.git'          , Path.join (ROOT_DIR, 'client'))
     gitClone (ne + '/neutralinojs.git'           , Path.join (ROOT_DIR, 'server'))
     gitClone (ne + '/neutralinojs.github.io.git' , Path.join (ROOT_DIR, 'site'))
+    gitClone (ne + '/neutralinojs-cli.git'       , Path.join (ROOT_DIR, 'cli'))
 }
-
 
 /**
     @param {string} repo - Url of the repository
@@ -67,7 +42,7 @@ export function main ()
 function gitClone (repo, dir)
 {
     if (Fs.existsSync (dir)) {
-        console.error ('### Destination path "' + dir + '" already exists')
+        console.warn ('### Destination path "' + dir + '" already exists')
         return
     }
 

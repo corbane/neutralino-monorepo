@@ -33,7 +33,7 @@ make quickway
 
 command | overview
 --- | ---
-[`api.ts.wip`](#apitswip) | 
+[`api.ts.wip`](#apitswip) | Compile the js client library
 [`git.clone`](#gitclone) | Initialize Git submodules
 [`js.install`](#jsinstall) | Initialize Node packages
 [`napi.dts`](#napidts) | Generate a Typescript definition file from API files.
@@ -45,6 +45,8 @@ command | overview
 [`test.app`](#testapp) | 
 
 ## `api.ts.wip`
+
+Compile the js client library
 
 **WORK IN PROCESS**
 

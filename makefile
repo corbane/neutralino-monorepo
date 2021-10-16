@@ -16,6 +16,7 @@ quickway:
 	$(CMD_GIT_CLONE)
 	$(CMD_JS_INSTALL)
 	$(CMD_APP_INSTALL)
+	$(CMD_MD)
 	$(CMD_HTML)
 	neu run
 
@@ -39,7 +40,7 @@ test.app:
 
 CMD_DTS  = node tools/@napi.dts  --napis api/*.yaml --outfile $(DTS_OUTFILE)
 CMD_MD   = node tools/@napi.md   --napis api/*.yaml --outdir $(MD_OUTDIR)
-CMD_HTML = node tools/@napi.html --mdfiles out/md/*.md --outdir $(HTML_OUTDIR)
+CMD_HTML = node tools/@napi.html --napis api/*.yaml --outdir $(HTML_OUTDIR)
 
 sch:
 #	node tools/@napi.sch --napis api/*.yaml --outdir $(SCH_OUTDIR)
@@ -57,6 +58,8 @@ md.w:
 
 html:
 	$(CMD_HTML)
+html.w:
+	$(CMD_HTML) --watch
 
 
 # USE CASE

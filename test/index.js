@@ -132,12 +132,51 @@ async function showPage (title, id)
         container.innerHTML = await rep.text ()
         
         CURRENT_PAGE = title
+        applyStyles ()
         highlight ()
         fillCodeBlocks ()
     }
 
     if (id)
         document.getElementById(id).scrollIntoView ({behavior: "smooth"})
+
+    closeSidebar ()
+}
+
+//------------------------------------------------------------------------------
+// Styles
+//------------------------------------------------------------------------------
+//  tools/napi.html.js generate a HTML tree like:
+//
+//  ```html
+//  <section data-zlevel="1">
+//      <h1>Neutralino.app</h1>
+//      ...
+//      <section data-zlevel="2">
+//          <h2>exit</h2>
+//          ...
+//          <section data-zlevel="3">
+//              <h3>Parameters</h3>
+//              ...
+//          </section>
+//          <section data-zlevel="3">
+//              <h3>Return</h3>
+//              ...
+//          </section>
+//      </section>
+//  </section>
+//  ```
+
+function applyStyles ()
+{
+    const h1 = document.querySelector ('[data-zlevel="1"] > h1')
+    if (h1) {
+        h1.classList.add ('container', 'center', 'padding-32')
+    }
+
+    for (var elem of document.querySelectorAll ('[data-zlevel="2"]')) {
+        elem.classList.add ('container', 'card-4', 'margin', 'white')
+    }
 }
 
 //------------------------------------------------------------------------------

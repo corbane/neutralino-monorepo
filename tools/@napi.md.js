@@ -25,7 +25,6 @@ import { NapiDocument, getObjectKeys } from './lib/napi.js'
 import { readYamlFile, changeDestination, writeFile } from './lib/io.js'
 import { isMain, hasArgument, requireArgumentList, requireArgument } from '../tools/lib/cmd.js'
 
-
 if (isMain (import.meta))
     main ()
 
@@ -90,14 +89,16 @@ import {
 
 /**
  * @param {NapiDocument} doc
+ * @returns {import ('mdast').Root}
  */
-function createMdast (doc)
+export function createMdast (doc)
 {
     /** @param {string} ref */
     const refname = (ref) => ref.substring (2) // "#/..."
 
     const ast = root ([
-        html ('---\ntitle: ' + doc.fields.$namespace + '\n---'),
+        // @ts-ignore,
+        { type: 'yaml', value: 'title: ' + doc.fields.$namespace },
         paragraph (fromMarkdown (doc.fields.description || '<!-- NO DESCRIPTION -->', 'utf8').children)
     ])
     const out = ast.children
@@ -225,6 +226,9 @@ function createMdast (doc)
         }
     }
 
+    // @ts-ignore
+    // mdast-builder has bad type annotation support.
+    // It only returns Unist types and not Mdast types.
     return ast 
 }
 

@@ -8,7 +8,9 @@ import { execSync } from 'child_process'
 import { ROOT_DIR, __dirname} from './lib.js'
 import { isMain, hasArgument, CommandLineError } from './lib/cmd.js'
 
-if (isMain (import.meta)) main ()
+if (isMain (import.meta))
+    main ()
+    
 export function main ()
 {
     start ()
