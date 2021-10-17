@@ -8,7 +8,7 @@ From a single definition, it is possible to generate:
 - Typescript definition of server messages
 - Schema of `neutralino.config.json`
 - Test application
-
+  ![](testapp.png)
 
 **NOTE** 
 

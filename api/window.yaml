@@ -95,8 +95,7 @@ setIcon:
     Sets an icon for the native window or Dock.
 
     ```js
-    const icon = '/resources/icons/appIcon.png';
-    await Neutralino.window.setIcon(icon);
+    Neutralino.window.setIcon ('/resources/icons/appIcon.png');
     ````
 
 SetIconParams:
@@ -116,13 +115,23 @@ focus:
 
 hide:
   type: http:get
-  description: Hides the native window.
+  description: |
+    Hides the native window.
+    ```js
+    Neutralino.window.hide ().then (() => {
+      window.setTimeout (() => Neutralino.window.show (), 1000)
+    })
+    ```
   result:
     $ref: '#/SuccessResult'
 
 isVisible:
   type: http:get
-  description: Returns true if the native window is visible.
+  description: |
+    Returns true if the native window is visible.
+    ```js
+    Neutralino.window.isVisible ();
+    ```
   result:
     $ref: '#/IsVisibleResult'
 
@@ -139,19 +148,33 @@ IsVisibleResult:
 
 show:
   type: http:get
-  description: Shows the native window.
+  description: |
+    Shows the native window.
+    ```js
+    Neutralino.window.hide ().then (() => {
+      window.setTimeout (() => Neutralino.window.show (), 1000)
+    })
+    ```
   result:
     $ref: '#/SuccessResult'
 
 minimize:
   type: http:get
-  description: Minimizes the native window.
+  description: |
+    Minimizes the native window.
+    ```js
+    Neutralino.window.minimize ()
+    ```
   result:
     $ref: '#/SuccessResult'
 
 maximize:
   type: http:get
-  description: Maximizes the native window.
+  description: |
+    Maximizes the native window.
+    ```js
+    Neutralino.window.maximize ();
+    ```
   result:
     $ref: '#/SuccessResult'
 
@@ -260,7 +283,7 @@ create:
     However, you can build communication streams between windows with the [storage API](./storage.md).
 
     ```js
-    await Neutralino.window.create('/resources/aboutWindow.html', {
+    Neutralino.window.create('/resources/aboutWindow.html', {
         icon: '/resources/icons/aboutIcon.png',
         enableInspector: false,
         width: 500,

@@ -20,9 +20,17 @@ var MENU_GROUPS = {}
 
 document.addEventListener('DOMContentLoaded', async () =>
 {
+    CURRENT_PAGE = null
     DESCRIPTION = (await import ('../out/html/sidebar.js')).default
     fillMenu ()
-    showPage (Object.keys (DESCRIPTION)[0])
+    const page = localStorage.getItem ('CURRENT_PAGE')
+    if (page) {
+        showPage (page).then (() => {
+            window.scroll (0, parseInt (localStorage.getItem ('CURRENT_SCROLL')))
+        })
+    } else {
+        showPage (Object.keys (DESCRIPTION)[0])
+    }
 })
 
 // Accordion
@@ -36,6 +44,20 @@ function expandMenuGroup (elem)
 }
 
 
+//------------------------------------------------------------------------------
+// Sidebar
+//------------------------------------------------------------------------------
+
+
+/** @type {Document["querySelector"]} */
+const $ = (selector) => document.querySelector (selector)
+
+/** @type {Document["querySelectorAll"]} */
+const $$ = (selector) => document.querySelectorAll (selector)
+
+/** @type {Document["getElementById"]} */
+const $id = (id) => document.getElementById (id)
+
 
 //------------------------------------------------------------------------------
 // Sidebar
@@ -44,24 +66,21 @@ function expandMenuGroup (elem)
 
 document.addEventListener('DOMContentLoaded', async () =>
 {
-    var elem = document.getElementById ('sidebar-main-buttun')
-    elem.onclick = openSidebar
-    var elem = document.getElementById ('sidebar-close-buttun')
-    elem.onclick = closeSidebar
-    var elem = document.getElementById ('sidebar-overlay')
-    elem.onclick = closeSidebar
+    $id ('sidebar-main-buttun').onclick = openSidebar
+    // $id ('sidebar-close-buttun').onclick = closeSidebar
+    $id ('sidebar-overlay').onclick = closeSidebar
 })
 
 function openSidebar ()
 {
-    document.getElementById("sidebar").style.display = "block";
-    document.getElementById("sidebar-overlay").style.display = "block";
+    $id ("sidebar").style.display = "block";
+    $id ("sidebar-overlay").style.display = "block";
 }
 
 function closeSidebar ()
 {
-    document.getElementById("sidebar").style.display = "none";
-    document.getElementById("sidebar-overlay").style.display = "none";
+    $id ("sidebar").style.display = "none";
+    $id ("sidebar-overlay").style.display = "none";
 }
 
 
@@ -101,7 +120,7 @@ function menuButton (pageTitle, headingTitle)
 
 function fillMenu ()
 {
-    const sidemenu = document.getElementById ('sidemenu')
+    const sidemenu = $id ('sidemenu')
 
     for (var title in DESCRIPTION) {
         sidemenu.append (
@@ -113,9 +132,22 @@ function fillMenu ()
     }
 }
 
+
 //------------------------------------------------------------------------------
 // Pages
 //------------------------------------------------------------------------------
+
+
+window.addEventListener ('scroll', () =>
+{
+    localStorage.setItem ('CURRENT_SCROLL', ''+window.scrollY)
+
+    if (window.scrollY > 80) {
+        $id ('header').classList.add ('small')
+    } else {
+        $id ('header').classList.remove ('small')
+    }
+})
 
 /**
  * @param {string} title 
@@ -128,71 +160,51 @@ async function showPage (title, id)
         const rep = await fetch (DESCRIPTION[title].url)
         if (rep.ok === false) return
 
-        var container = document.getElementById ('page-content')
+        var container = $id ('page-content')
         container.innerHTML = await rep.text ()
         
         CURRENT_PAGE = title
+        localStorage.setItem ('CURRENT_PAGE', title)
+        document.querySelector ('#header > h1').textContent = title
         applyStyles ()
-        highlight ()
         fillCodeBlocks ()
     }
 
-    if (id)
-        document.getElementById(id).scrollIntoView ({behavior: "smooth"})
+    if (id) {
+        $id(id).scrollIntoView ({behavior: "smooth"})
+    }
 
     closeSidebar ()
 }
 
-//------------------------------------------------------------------------------
-// Styles
-//------------------------------------------------------------------------------
-//  tools/napi.html.js generate a HTML tree like:
-//
-//  ```html
-//  <section data-zlevel="1">
-//      <h1>Neutralino.app</h1>
-//      ...
-//      <section data-zlevel="2">
-//          <h2>exit</h2>
-//          ...
-//          <section data-zlevel="3">
-//              <h3>Parameters</h3>
-//              ...
-//          </section>
-//          <section data-zlevel="3">
-//              <h3>Return</h3>
-//              ...
-//          </section>
-//      </section>
-//  </section>
-//  ```
-
 function applyStyles ()
 {
-    const h1 = document.querySelector ('[data-zlevel="1"] > h1')
-    if (h1) {
-        h1.classList.add ('container', 'center', 'padding-32')
-    }
-
-    for (var elem of document.querySelectorAll ('[data-zlevel="2"]')) {
+    for (var elem of document.querySelectorAll ('[data-zlevel="1"]')) {
         elem.classList.add ('container', 'card-4', 'margin', 'white')
     }
+
+    for (var elem of document.querySelectorAll ('[data-zlevel="2"] > ul')) {
+        elem.classList.add ('list-table')
+    }
+
+    globalThis.Prism.highlightAll ()
+    
+    // for (var elem of document.querySelectorAll ('.list-table li > code')) {
+    //     elem.classList.add ('language-js')
+    //     globalThis.Prism.highlightElement (elem)
+    // }
 }
+
+
 
 //------------------------------------------------------------------------------
 // Code Blocks
 //------------------------------------------------------------------------------
 
-function highlight ()
-{
-    globalThis.Prism.highlightAll ()
-    // document.getElementById ('page-content')
-}
-
 
 function fillCodeBlocks ()
 {
-    for (var codeBlock of document.querySelector ('.main').querySelectorAll ('code'))
+    for (var codeBlock of document.querySelector ('.main').querySelectorAll ('pre > code'))
     {
         if (codeBlock.classList.contains ('language-js') === false) continue
         appendTryButton (codeBlock)
@@ -200,17 +212,19 @@ function fillCodeBlocks ()
 }
 
 /**
- * @param {HTMLElement} codeBlock 
+ * @param {Element} codeBlock 
  * @returns 
  */
 function appendTryButton (codeBlock)
 {
     const view = document.createElement ('div')
-    const elem = document.createElement ('button')
-    elem.textContent = 'Try'
-    elem.onclick = evalCodeHandle (codeBlock.textContent, view)
+    const btn  = document.createElement ('button')
+    btn.textContent = 'Try'
+    btn.classList.add ('button', 'small', 'border')
+    btn.style.marginTop = '10px'
+    btn.onclick = evalCodeHandle (codeBlock.textContent, view)
     codeBlock.insertAdjacentElement ("afterend", view)
-    codeBlock.insertAdjacentElement ("afterend", elem)
+    codeBlock.insertAdjacentElement ("afterend", btn)
 }
 
 const evalCodeHandle = (code, target) => async () =>

@@ -4,17 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./lib/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="./lib/prism.css" rel="stylesheet" />
 <style>
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
+    body, h1, h2, h3, h4, h5 {
         font-family: "Raleway", sans-serif
     }
+
+    #header {
+        transition: 0.4s;
+        margin-top: 32px;
+        margin-bottom: 32px;
+    }
+    #header > * {
+        font-size: xx-large;
+    }
+    #header.small {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    #header.small > * {
+        font-size: medium;
+    }
+
+    .main > .row {
+        margin-top: 138px;
+    }
+
+    code {
+        background-color: gainsboro;
+        padding: 0 5px;
+    }
+
+    ul.list-table {
+        display: table;
+    }
+    ul.list-table > li {
+        display: table-row;
+    }
+    ul.list-table > li > code {
+        display: table-cell;
+        border-radius: 0;
+        padding: 0 5px;
+        border-bottom: 1px solid white;
+    }
+    ul.list-table > li > p {
+        display: table-cell;
+        padding-left: 10px;
+    }
+
 </style>
 
 <body class="light-grey">
@@ -28,53 +65,30 @@
         <!-- Sidebar Header -->
         <div
             class="container display-container padding-16">
-            <i
-                id="sidebar-close-buttun"
-                onclick="w3_close()"
-                class="fa fa-remove hide-large button display-topright"></i>
-            <h3
-                class="wide">
-                <b>LOGO</b>
-            </h3>
         </div>
 
         <!-- Sidebar Menu -->
         <div
             id="sidemenu"
-            class="padding-64 large text-grey"
+            class="padding-16 large text-grey"
             style="font-weight:bold">
         </div>
 
         <!-- Sidebar Footer -->
         <a
-            href="#footer" class="bar-item button padding">
-            Contact
+            href="https://neutralino.js.org/"
+            class="bar-item button padding">
+            NeutralinoJs
         </a>
         <a 
-            href="javascript:void(0)"
+            href="https://github.com/corbane/neutralino-monorepo"
             class="bar-item button padding"
             onclick="document.getElementById('newsletter').style.display='block'">
-            Newsletter
-        </a>
-        <a
-            href="#footer"
-            class="bar-item button padding">
-            Subscribe
+            TestApp project
         </a>
 
     </nav>
 
-    <!-- Top menu on small screens -->
-    <header
-        class="bar hide-large xlarge"
-        style="position: absolute;">
-        <span
-            id="sidebar-main-buttun"
-            class="bar-item button padding-24">
-            <i class="fa fa-bars"></i>
-        </span>
-    </header>
-    
     <!-- Overlay effect when opening sidebar on small screens -->
     <div
         id="sidebar-overlay"
@@ -82,33 +96,27 @@
         style="cursor:pointer"
         title="close side menu"></div>
 
-    <div class="main" style="margin-left:250px">
+    <!-- Page -->
+    <div
+        class="main"
+        style="margin-left:250px">
 
-        <!-- Header
-        <header class="container center padding-32">
-            <h1><b>Neutralino</b></h1>
-            <p>Welcome to the <span class="tag">Demo App</span></p>
-        </header> -->
+        <!-- Header -->
+        <header
+            id="header"
+            class="container top light-grey">
+            <div
+                id="sidebar-main-buttun"
+                class="button left"
+                style="position: absolute;">☰</div>
+            <h1
+                class="center">Neutralino</h1>
+        </header>
 
-        <!-- Grid -->
+        <!-- Content -->
         <div class="row">
-            <div class="col" id="page-content">
-
-                <!-- <div class="card-4 margin white">
-                    <div class="container" id="page-content">
-                        
-                    </div>
-                </div>-->
-
-            </div>
+            <div class="col" id="page-content"></div>
         </div>
-
-        <!-- Footer -->
-        <footer class="container padding-32 margin-top">
-            <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-        </footer>
-
-
     </div>
 
     <script src="js/neutralino.js"></script>

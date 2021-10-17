@@ -9,6 +9,7 @@
         "client"          : true,
         "site"            : true,
         "cli"             : true,
-        "tools"           : true
+        "tools"           : true,
+        "test"            : true
     }
 }

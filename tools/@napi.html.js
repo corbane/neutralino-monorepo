@@ -32,7 +32,14 @@ export async function main ()
     const apifiles = requireArgumentList ('--napis')
     const outdir  = requireArgument ('--outdir')
 
-    await generate ()
+    /**
+     * @type {{
+     *  [path: string]: ReturnType <typeof napiToHtml> & { outpath: string }
+     * }}
+     */
+    const outdata = {}
+
+    await generateHtml (apifiles).then (() => generateSidebarJs ())
 
     if (hasArgument ('--watch') === false)
         return
@@ -40,38 +47,56 @@ export async function main ()
     const watcher = chokidar.watch (apifiles, { persistent: true, depth: 0 })
     watcher.on ('ready', () =>
     {
-        watcher.on ('change', generate)
-        watcher.on ('add', generate)
+        watcher.on ('change', (path) => generateHtml ([path]).then (() => generateSidebarJs ()))
+        // watcher.on ('add', () => generateHtml ().then (() => generateSidebarJs ()))
     })
     
-    async function generate ()
+    /**
+     * @param {string[]} apifiles 
+     */
+    async function generateHtml (apifiles)
+    {
+        await Promise.all (apifiles.map (async path => 
+        {
+            const outpath = changeDestination (path, outdir, '.html')
+            const data = napiToHtml (new NapiDocument (
+                path,
+                Yaml.parse (Fs.readFileSync (path, { encoding: 'utf8' }))
+            ))
+
+            outdata[path] = Object.assign (data, { outpath })
+
+            writeFile (
+                outpath,
+                '<!-- !!! This file is generate by a script, do not modify it. !!! -->\n' +
+                data.html
+            )
+        }))
+    }
+
+    function generateSidebarJs ()
     {
         /** 
          * @typedef {{
-         *     url: string,
-         *     ids: string[]
+         *      url: string,
+         *      ids: string[]
+         *      matter: Record <string, string>
          * }} PageDescription
          * 
          * @type {Record <string, PageDescription>}
          */
         const menudesc = {}
     
-        await Promise.all (apifiles.map (async path => 
+        for (var path of apifiles)
         {
-            const outpath = changeDestination (path, outdir, '.html')
-            const outdata = napiToHtml (new NapiDocument (
-                path,
-                Yaml.parse (Fs.readFileSync (path, { encoding: 'utf8' }))
-            ))
-
-            menudesc[outdata.matter.title] = {
-                ids: outdata.anchors,
+            var page = outdata[path]
+            menudesc[page.matter.title] = {
+                ids: page.anchors,
             // TODO be able to configure a custom root path.
-                url: '/' + Path.relative (ROOT_DIR, outpath).replace (/\\/g, '/')
+                url: '/' + Path.relative (ROOT_DIR, page.outpath).replace (/\\/g, '/'),
+                matter: page.matter
             }
-
-            writeFile (outpath, outdata.html)
-        }))
+        }
         
         writeFile (
             Path.join (outdir, 'sidebar.js'),
@@ -122,7 +147,7 @@ export function napiToHtml (doc)
             yaml: (h, node) =>
             {
                 matter = Yaml.parse (node.value)
-                return h (node.position, 'h1', [{ type: 'text', value: matter.title }])
+                return undefined // h (node.position, 'h1', [{ type: 'text', value: matter.title }])
             },
             /**
              * @param {MdastHeading} node 
@@ -140,7 +165,7 @@ export function napiToHtml (doc)
     })
 
     
-    const htags = ["h1", "h2", "h3", "h4", "h5", "h6"]
+    const htags = [/*"h1",*/ "h2", "h3", "h4", "h5", "h6"]
     var ztree = toZTree (hast, el =>
     {
         if ('tagName' in el) {
@@ -153,8 +178,7 @@ export function napiToHtml (doc)
     return {
         matter: matter || {},
         anchors: ids,
-        html: '<!-- !!! This file is generate by a script, do not modify it. !!! -->\n'
-            + toHtml ({
+        html: toHtml ({
                 type: 'root',
                 position: mdast.position,
                 // children: zhastToHast (HastToZTree (hast))

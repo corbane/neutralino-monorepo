@@ -16,11 +16,13 @@
 			"path": "tools"
 		},
 		{
+			"path": "test"
+		},
+		{
 			"path": "."
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "neutralino-monorepo",
-		"previewjsdoc.output": "docs"
+		"liveServer.settings.multiRootWorkspaceName": "neutralino-monorepo"
 	}
 }

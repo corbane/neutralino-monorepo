@@ -9,6 +9,7 @@ From a single definition, it is possible to generate:
 - Schema of `neutralino.config.json`
 - Test application
 
+  ![](testapp.png)
 
 **NOTE** 
 

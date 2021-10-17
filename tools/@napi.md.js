@@ -129,7 +129,7 @@ export function createMdast (doc)
      * @param {string|undefined} key
      * @param {SchemaItem} item
      */
-    function pushSchemaItem  (key, item)
+    function pushSchemaItem  (key, item, headingLevel = 3)
     {
         if ('oneOf' in item)
         {
@@ -159,24 +159,15 @@ export function createMdast (doc)
         }
         else if ('properties' in item)
         {
-            pushHead (key, item)
+            if (key) out.push (
+                heading (headingLevel, text (key)),
+                paragraph (createDescription (doc, item))
+            )
             pushObjectProperties (item)
         }
         else
         {
             throw new Error (item)
-        }
-
-        /**
-         * @param {string} key
-         * @param {SchemaItem} item
-         */
-        function pushHead (key, item)
-        {
-            if (key) out.push (
-                heading (3, text (key)),
-                paragraph (createDescription (doc, item))
-            )
         }
     }
 
@@ -202,7 +193,7 @@ export function createMdast (doc)
         )
         
         for (var key in subSchemas) {
-            pushSchemaItem (key, subSchemas[key])
+            pushSchemaItem (key, subSchemas[key], 4)
         }
 
         /**
