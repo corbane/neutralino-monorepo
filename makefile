@@ -14,8 +14,7 @@ DTS_OUTFILE = api/ts/messages.d.ts
 MD_OUTDIR   = api/md/
 HTML_OUTDIR = api/html/
 
-default:
-	neu run
+default: start.app
 
 #-------------------------------------------------------------------------------
 # GENERATORS
