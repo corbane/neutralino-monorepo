@@ -9,8 +9,6 @@ command | overview
 [`napi.sch`](#napisch) | Generate a JSON Schema File from a NAPI File.
 [`napi.ts`](#napits) | Compile the js client library
 [`readme`](#readme) | Generate this `README.md`
-[`start.site`](#startsite) | 
-[`test.app`](#testapp) | 
 
 ## `napi.dts`
 
@@ -122,24 +120,6 @@ Generate this `README.md`
 * `--intro   <file>`
 * `--outfile <file>`
 * `[--watch]`
-
-
-[<sub>top</sub>](#command-overview)
-
-## `start.site`
-
-**WORK IN PROCESS**
-
-
-
-
-[<sub>top</sub>](#command-overview)
-
-## `test.app`
-
-**WORK IN PROGRESS**
-
-
 
 
 [<sub>top</sub>](#command-overview)
