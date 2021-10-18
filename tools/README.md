@@ -3,8 +3,6 @@
 
 command | overview
 --- | ---
-[`git.clone`](#gitclone) | Initialize Git submodules
-[`js.install`](#jsinstall) | Initialize Node packages
 [`napi.dts`](#napidts) | Generate a Typescript definition file from API files.
 [`napi.html`](#napihtml) | Generate a HTML file from a Markdown file.
 [`napi.md`](#napimd) | Generate a Markdown file from a NAPI file.
@@ -13,37 +11,6 @@ command | overview
 [`readme`](#readme) | Generate this `README.md`
 [`start.site`](#startsite) | 
 [`test.app`](#testapp) | 
-
-## `git.clone`
-
-Initialize Git submodules
-
-**ARGS**
-
-* No args
-
-**DETAILS**
-
-Run the `git clone` command to download the Neutralino repositories in the following directories.
-
-- `neutralinojs` in `server`
-- `neutralino.js` in `client`
-- `neutralinojs.github.io` in `site`
-
-
-[<sub>top</sub>](#command-overview)
-
-## `js.install`
-
-Initialize Node packages
-
-**ARGS**
-
-* `[packages_manager = --npm]` Can be oneof `--npm`, `--yarn` or `--pnpm`
-* `[flags...]`                 Flags are passed to the package manager and depend on which one you choose.
-
-
-[<sub>top</sub>](#command-overview)
 
 ## `napi.dts`
 
