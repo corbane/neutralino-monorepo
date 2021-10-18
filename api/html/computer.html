@@ -1,0 +1,20 @@
+<!-- !!! This file is generate by a script, do not modify it. !!! -->
+<p></p>
+<section data-zlevel="1"><header id="getMemoryInfo"><h2 id="getMemoryInfo">getMemoryInfo</h2></header><section data-sectionof="getMemoryInfo">
+<p>Provides physical memory details (in megabytes).</p>
+<pre><code class="language-js">Neutralino.computer.getMemoryInfo()
+  .then (ramInfo => `Your ram size: ${Math.round(ramInfo.total / 1000000)}GB`)
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>returnValue: GetMemoryInfoResult</code> <p></p></li>
+</ul>
+<section data-zlevel="3"><header id="GetMemoryInfoResult"><h4>GetMemoryInfoResult</h4></header><section data-sectionof="GetMemoryInfoResult">
+<p><p></p></p>
+<p><strong>required</strong></p>
+<ul>
+<li><code>total: number</code> <p>Total physical memory.</p></li>
+<li><code>available: number</code> <p>Available physical memory.</p></li>
+</ul></section></section></section></section></section></section>

@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=./lib/neu-api.json
+# yaml-language-server: $schema=../json/neu-api.json
 $namespace: Neutralino.window
 $description: |
   `Neutralino.window` namespace contains methods related to the current native window instance.
@@ -180,7 +180,11 @@ maximize:
 
 isMaximized:
   type: http:get
-  description: Returns true if the native window is maximized.
+  description: |
+    Returns true if the native window is maximized.
+    ```js
+    Neutralino.window.isMaximized ();
+    ```
   result:
     $ref: '#/IsMaximizedResult'
 
@@ -197,13 +201,21 @@ IsMaximizedResult:
 
 unmaximize:
   type: http:get
-  description: Restores the native window.
+  description: |
+    Restores the native window.
+    ```js
+    Neutralino.window.unmaximize ();
+    ```
   result:
     $ref: '#/SuccessResult'
 
 setFullScreen:
   type: http:get
-  description: Enables the full screen mode.
+  description: |
+    Enables the full screen mode.
+    ```js
+    Neutralino.window.setFullScreen ();
+    ```
   result:
     $ref: '#/SuccessResult'
 
@@ -217,13 +229,21 @@ IsFullScreenResult:
 
 isFullScreen:
   type: http:get
-  description: Returns true if the native window is in the full screen mode.
+  description: |
+    Returns true if the native window is in the full screen mode.
+    ```js
+    Neutralino.window.isFullScreen ();
+    ```
   result:
     $ref: '#/IsFullScreenResult'
 
 exitFullScreen:
   type: http:get
-  description: Exits from the full screen mode.
+  description: |
+    Exits from the full screen mode.
+    ```js
+    Neutralino.window.exitFullScreen ();
+    ```
   result:
     $ref: '#/SuccessResult'
 
@@ -258,6 +278,8 @@ setDraggableRegion:
     $ref: '#/SetDraggableRegionParams'
   description: |-
     Converts a given DOM element to a draggable region. The user will be able to drag the native window by dragging the given DOM element. This feature is suitable to make custom window bars along with the [borderless mode](../configuration/neutralino.config.json#modeswindowborderless-boolean). 
+
+    <div>DRAG ME</div>
 
     ```js
     await Neutralino.window.setDraggableRegion('myCustomTitleBar');

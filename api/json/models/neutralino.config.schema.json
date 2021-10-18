@@ -1,0 +1,227 @@
+{
+   "$schema": "http://json-schema.org/draft-04/schema#",
+   "definitions": {
+      "Config": {
+         "type": "object",
+         "$comment": "The presence of 'EXCLUDED_IN_MD' in the '$comment' field prevents Markdown generation of the schema\n",
+         "properties": {
+            "applicationId": {
+               "type": "string",
+               "default": "js.neutralino.sample",
+               "description": "Unique string to identify your application. Eg: `js.neutralino.sample`\n"
+            },
+            "defaultMode": {
+               "type": "string",
+               "enum": [
+                  "window",
+                  "browser",
+                  "cloud"
+               ],
+               "default": "window",
+               "description": "Mode of the application. Accepted values are `window`, `browser`, and `cloud`.\n"
+            },
+            "port": {
+               "type": "integer",
+               "description": "The port of your application. If the value is `0`, Neutralinojs will use a random available port.\n"
+            },
+            "url": {
+               "type": "string",
+               "description": "The entrRLy U of the application. Neutralinojs will initially load this URL.\nThis property accepts both relative and absolute URLs.\n",
+               "default": "/resources/"
+            },
+            "enableHTTPServer": {
+               "type": "boolean",
+               "description": "Enables or disables the background server (The static file server and native API).\n",
+               "default": true
+            },
+            "enableNativeAPI": {
+               "type": "boolean",
+               "description": "Enables or disables the native API. For better security, this setting should be `false` if you are using a\nremote URL as your web frontend.\n",
+               "default": true
+            },
+            "nativeBlockList": {
+               "type": "array",
+               "description": "An array of native methods needs to be blocked from the frontend of the application.\n",
+               "items": {
+                  "type": "string"
+               }
+            },
+            "globalVariables": {
+               "$ref": "#/definitions/ConfigGlobals"
+            },
+            "modes": {
+               "$ref": "#/definitions/ConfigModes"
+            },
+            "cli": {
+               "$ref": "#/definitions/ConfigCli"
+            }
+         },
+         "required": [
+            "applicationId",
+            "defaultMode",
+            "port",
+            "url",
+            "enableHTTPServer",
+            "enableNativeAPI",
+            "nativeBlockList",
+            "globalVariables",
+            "modes",
+            "cli"
+         ],
+         "title": "Config"
+      },
+      "ConfigGlobals": {
+         "type": "object",
+         "properties": {},
+         "description": "A key-value-based JavaScript object of custom [global variables](../developer-environment/global-variables#custom-global-variables).\n",
+         "title": "ConfigGlobals"
+      },
+      "ConfigModes": {
+         "type": "object",
+         "properties": {
+            "window": {
+               "$ref": "#/definitions/ConfigModeWindow"
+            },
+            "browser": {
+               "$ref": "#/definitions/ConfigModeBrowser"
+            },
+            "cloud": {
+               "$ref": "#/definitions/ConfigModeCloud"
+            }
+         },
+         "required": [
+            "window",
+            "browser",
+            "cloud"
+         ],
+         "title": "ConfigModes"
+      },
+      "ConfigModeWindow": {
+         "type": "object",
+         "required": [
+            "title"
+         ],
+         "properties": {
+            "title": {
+               "type": "string",
+               "default": "Neutralinojs app",
+               "description": "Title of the native window."
+            },
+            "width": {
+               "type": "integer",
+               "default": 800,
+               "description": "Width of the native window."
+            },
+            "height": {
+               "type": "integer",
+               "default": 500,
+               "description": "Height of the native window."
+            },
+            "maxWidth": {
+               "type": "number",
+               "description": "Maximum width of the native window."
+            },
+            "maxHeight": {
+               "type": "number",
+               "description": "Maximum height of the native window."
+            },
+            "minWidth": {
+               "type": "integer",
+               "default": 400,
+               "description": "Minimum width of the native window."
+            },
+            "minHeight": {
+               "type": "integer",
+               "default": 200,
+               "description": "Minimum height of the native window."
+            },
+            "fullScreen": {
+               "type": "boolean",
+               "default": false,
+               "description": "Activates the full-screen mode."
+            },
+            "alwaysOnTop": {
+               "type": "boolean",
+               "default": false,
+               "description": "Activates the top-most mode."
+            },
+            "icon": {
+               "type": "string",
+               "default": "/resources/icons/appIcon.png",
+               "description": "Application icon's file name. You can directly point to an image file in the\nresources directory. We recommend you to choose a transparent PNG file.\n"
+            },
+            "enableInspector": {
+               "type": "boolean",
+               "default": true,
+               "description": "Automatically opens the developer tools window."
+            },
+            "borderless": {
+               "type": "boolean",
+               "default": false,
+               "description": "Activates the borderless mode."
+            },
+            "maximize": {
+               "type": "boolean",
+               "default": false,
+               "description": "Launches the application maximized."
+            },
+            "hidden": {
+               "type": "boolean",
+               "default": false,
+               "description": "Make the window invisible. This setting can be used to develop background services.\n"
+            },
+            "resizable": {
+               "type": "boolean",
+               "default": true,
+               "description": "Make the window resizable or not. The default value is `true`.\n"
+            }
+         },
+         "title": "ConfigModeWindow"
+      },
+      "ConfigModeBrowser": {
+         "type": "object",
+         "properties": {},
+         "title": "ConfigModeBrowser"
+      },
+      "ConfigModeCloud": {
+         "type": "object",
+         "properties": {},
+         "title": "ConfigModeCloud"
+      },
+      "ConfigCli": {
+         "type": "object",
+         "required": [
+            "binaryName",
+            "resourcesPath",
+            "clientLibrary"
+         ],
+         "properties": {
+            "binaryName": {
+               "type": "string",
+               "description": "Binary file name of your application. If it is `myapp`, all binaries should use\n`myapp-<platform>` format.\n",
+               "default": "neutralino"
+            },
+            "resourcesPath": {
+               "type": "string",
+               "description": "Path of your application resources.\n",
+               "default": "/resources/"
+            },
+            "clientLibrary": {
+               "type": "string",
+               "default": "/resources/js/neutralino.js",
+               "description": "Filename of the Neutralinojs JavaScript library.\n"
+            },
+            "binaryVersion": {
+               "type": "string",
+               "description": "Neutralinojs server version. neu CLI adds this property when the project is scaffolded.\n"
+            },
+            "clientVersion": {
+               "type": "string",
+               "description": "Neutralinojs client version. neu CLI adds this property when the project is scaffolded.\n"
+            }
+         },
+         "title": "ConfigCli"
+      }
+   },
+   "$ref": "#/definitions/Config"
+}

@@ -25,6 +25,11 @@ import { NapiDocument, getObjectKeys } from './lib/napi.js'
 import { readYamlFile, changeDestination, writeFile } from './lib/io.js'
 import { isMain, hasArgument, requireArgumentList, requireArgument } from '../tools/lib/cmd.js'
 
+import { unified } from 'unified'
+import RemarkStringify from 'remark-stringify'
+import RemarkFrontmatter from 'remark-frontmatter'
+
+
 if (isMain (import.meta))
     main ()
 
@@ -32,14 +37,16 @@ export function main ()
 {
     const apifiles = requireArgumentList ('--napis')
     const outdir    = requireArgument ('--outdir')
-    const processor = unified().use (stringify, {
-        bullet: '*',
-        fence: '`',
-        fences: true,
-        incrementListMarker: false,
-        listItemIndent: 'one',
-        tightDefinitions: true
-    })
+    const processor = unified()
+        .use (RemarkFrontmatter)
+        .use (RemarkStringify, {
+            bullet: '*',
+            fence: '`',
+            fences: true,
+            incrementListMarker: false,
+            listItemIndent: 'one',
+            tightDefinitions: true
+        })
 
     generate ()
 
@@ -71,8 +78,6 @@ export function main ()
 // help: https://opis.io/json-schema/2.x/multiple-subschemas.html
 
 
-import stringify from 'remark-stringify'
-import { unified } from 'unified'
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import {
     root,
@@ -86,16 +91,18 @@ import {
     html
 } from 'mdast-builder'
 
+/**
+    @typedef {import ('unist').Node} UnistNode
+    @typedef {import ('mdast').Root} Root
+*/
+
 
 /**
  * @param {NapiDocument} doc
- * @returns {import ('mdast').Root}
+ * @returns {Root}
  */
 export function createMdast (doc)
 {
-    /** @param {string} ref */
-    const refname = (ref) => ref.substring (2) // "#/..."
-
     const ast = root ([
         // @ts-ignore,
         { type: 'yaml', value: 'title: ' + doc.fields.$namespace },
@@ -114,106 +121,18 @@ export function createMdast (doc)
 
         if (item.params)
         {
-            out.push (heading (3, text ('Parameters')))
-            pushSchemaItem  (undefined, doc.getRef (item.params))
+            out.push (
+                heading (3, text ('Parameters')),
+                ...createSchemaItem  (doc, undefined, doc.getRef (item.params))
+            )
         }
 
         if (item.result)
         {
-            out.push (heading (3, text ('Return')))
-            pushSchemaItem  (undefined, doc.getRef (item.result))
-        }
-    }
-
-    /**
-     * @param {string|undefined} key
-     * @param {SchemaItem} item
-     */
-    function pushSchemaItem  (key, item, headingLevel = 3)
-    {
-        if ('oneOf' in item)
-        {
-            out.push (paragraph ([
-                text ('One of '), ...formatHumanSequence (item.oneOf.map (sub => {
-                    return strong (inlineCode (refname (sub.$ref)))
-                })),
-            ]))
-
-            item.oneOf.forEach ((sub, i) => {
-                var subkey = refname (sub.$ref)
-                var subitem = doc.getRef (sub)
-                pushSchemaItem (subkey, subitem)
-            })
-        }
-        else if ('anyOf' in item)
-        {
-            out.push (paragraph ([
-                text ('Any of'), ...formatHumanSequence (item.anyOf.map (sub => text (refname (sub.$ref)))),
-            ]))
-
-            item.anyOf.forEach ((sub, i) => {
-                var subkey = refname (sub.$ref)
-                var subitem = doc.getRef (sub)
-                pushSchemaItem (subkey, subitem)
-            })
-        }
-        else if ('properties' in item)
-        {
-            if (key) out.push (
-                heading (headingLevel, text (key)),
-                paragraph (createDescription (doc, item))
+            out.push (
+                heading (3, text ('Return')),
+                ...createSchemaItem  (doc, undefined, doc.getRef (item.result))
             )
-            pushObjectProperties (item)
-        }
-        else
-        {
-            throw new Error (item)
-        }
-    }
-
-    /**
-     * @param {TypeObject} item
-     */
-    function pushObjectProperties (item)
-    {
-        var props = item.properties
-        var args = getObjectKeys (item)
-
-        /** @type {Record <string, SchemaItem>} */
-        const subSchemas = {}
-
-        if (args.required) out.push (
-           paragraph (strong (text ('required'))),
-           list ("unordered", args.required.map (key => format (key, props[key])))
-        )
-
-        if (args.optional) out.push (
-           paragraph (strong (text ('Optional'))),
-           list ("unordered", args.optional.map (key => format (key, props[key])))
-        )
-        
-        for (var key in subSchemas) {
-            pushSchemaItem (key, subSchemas[key], 4)
-        }
-
-        /**
-        * @param {string} key
-        * @param {Schema} item 
-        */
-        function format (key, item)
-        {
-            // oneOf and anyOf are previously captured in pushSchemaItem
-            if ('$ref' in item)
-            {
-                if (item.$ref.startsWith ('#/'))
-                    subSchemas[item.$ref.substring (2)] = doc.getRef (item)
-            }
-            else if ('type' in item && item.type === 'array' && '$ref' in item.items)
-            {
-                if (item.items.$ref.startsWith ('#/'))
-                    subSchemas[item.items.$ref.substring (2)] = doc.getRef (item.items)
-            }
-            return listItem (paragraph ([inlineCode (key + ': ' + formatTsType (item)), text (' '), ...createDescription (doc, item)]))
         }
     }
 
@@ -225,8 +144,117 @@ export function createMdast (doc)
 
 /**
  * @param {NapiDocument} doc
+ * @param {string|undefined} key
+ * @param {SchemaItem} item
+ * @returns {UnistNode[]}
+ */
+function createSchemaItem  (doc, key, item, headingLevel = 3)
+{
+    /** @type {UnistNode[]} */
+    const out = []
+
+    /** @param {string} ref */
+    const refname = (ref) => ref.substring (2) // "#/..."
+
+    if ('oneOf' in item)
+    {
+        out.push (paragraph ([
+            text ('One of '), ...formatHumanSequence (item.oneOf.map (sub => {
+                return strong (inlineCode (refname (sub.$ref)))
+            })),
+        ]))
+
+        item.oneOf.forEach ((sub, i) => {
+            var subkey = refname (sub.$ref)
+            var subitem = doc.getRef (sub)
+            out.push (...createSchemaItem (doc, subkey, subitem, headingLevel+1))
+        })
+    }
+    else if ('anyOf' in item)
+    {
+        out.push (paragraph ([
+            text ('Any of'), ...formatHumanSequence (item.anyOf.map (sub => text (refname (sub.$ref)))),
+        ]))
+
+        item.anyOf.forEach ((sub, i) => {
+            var subkey = refname (sub.$ref)
+            var subitem = doc.getRef (sub)
+            out.push (...createSchemaItem (doc, subkey, subitem, headingLevel+1))
+        })
+    }
+    else if ('properties' in item)
+    {
+        if (key) out.push (
+            heading (headingLevel, text (key)),
+            paragraph (createDescription (doc, item))
+        )
+        out.push (...createObjectProperties (doc, item))
+    }
+    else
+    {
+        throw new Error (item)
+    }
+
+    return out
+}
+
+/**
+ * @param {NapiDocument} doc
+ * @param {TypeObject} item
+ * @returns {UnistNode[]}
+ */
+function createObjectProperties (doc, item)
+{
+    /** @type {UnistNode[]} */
+    const out = []
+
+    const props = item.properties
+    const args = getObjectKeys (item)
+
+    /** @type {Record <string, SchemaItem>} */
+    const subSchemas = {}
+
+    if (args.required) out.push (
+        paragraph (strong (text ('required'))),
+        list ("unordered", args.required.map (key => format (key, props[key])))
+    )
+
+    if (args.optional) out.push (
+        paragraph (strong (text ('Optional'))),
+        list ("unordered", args.optional.map (key => format (key, props[key])))
+    )
+    
+    for (var key in subSchemas) {
+        out.push (...createSchemaItem (doc, key, subSchemas[key], 4))
+    }
+
+    return out
+
+    /**
+    * @param {string} key
+    * @param {Schema} item 
+    */
+    function format (key, item)
+    {
+        // oneOf and anyOf are previously captured in pushSchemaItem
+        if ('$ref' in item)
+        {
+            if (item.$ref.startsWith ('#/'))
+                subSchemas[item.$ref.substring (2)] = doc.getRef (item)
+        }
+        else if ('type' in item && item.type === 'array' && '$ref' in item.items)
+        {
+            if (item.items.$ref.startsWith ('#/'))
+                subSchemas[item.items.$ref.substring (2)] = doc.getRef (item.items)
+        }
+        return listItem (paragraph ([inlineCode (key + ': ' + formatTsType (item)), text (' '), ...createDescription (doc, item)]))
+    }
+}
+
+/**
+ * @param {NapiDocument} doc
  * @param {SchemaItem|RequestItem|MethodItem|Schema} item 
- * @returns {import ('unist').Node[]}
+ * @returns {UnistNode[]}
  */
 function createDescription (doc, item)
 {

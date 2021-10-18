@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../lib/neu-sch.json
+# yaml-language-server: $schema=../../json/neu-sch.json
 $ref: '#/Config'
 Config:
   type: object

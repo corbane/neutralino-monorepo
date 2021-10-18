@@ -101,6 +101,7 @@ export async function main ()
         writeFile (
             Path.join (outdir, 'sidebar.js'),
             '// !!! This file is generate by a script, do not modify it. !!!\n' +
+            '// Generated on ' + new Date ().toUTCString () + '\n' +
             'export default ' + JSON.stringify (menudesc, null, 2)
         )
     }
@@ -182,7 +183,7 @@ export function napiToHtml (doc)
                 type: 'root',
                 position: mdast.position,
                 // children: zhastToHast (HastToZTree (hast))
-                children: ztree.children.map (c => c instanceof ZNode ? zhastToHast (c) : c)
+                children: ztree.children.map (c => c instanceof ZNode ? zhastToHast (c) : c).flat ()
             })
     }
 }

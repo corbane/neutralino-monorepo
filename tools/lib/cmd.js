@@ -120,14 +120,16 @@ export class CommandLineError extends Error
 //------------------------------------------------------------------------------
 
 /**
-    @typedef {object} Script
-    @property {string} path
-    @property {string} name
-    @property {Section[]} sections
+    @typedef {{
+        path: string
+        name: string
+        sections: Section[]
+    }} Script
 
-    @typedef {object} Section
-    @property {string} title
-    @property {string} content
+    @typedef {{
+        title: string
+        content: string
+    }} Section
 */
 
 /**
@@ -135,9 +137,7 @@ export class CommandLineError extends Error
  */
 export function getScriptsFrom (dirpath)
 {
-    /**
-        @type {Script[]}
-    */
+    /** @type {Script[]} */
     const out = []
 
     var dir = Fs.opendirSync (dirpath)

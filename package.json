@@ -31,6 +31,7 @@
 		"micromark": "^3.0.7",
 		"micromark-extension-directive": "^2.0.3",
 		"micromark-extension-frontmatter": "^1.0.0",
+		"remark-frontmatter": "^4.0.0",
 		"remark-stringify": "^10.0.0",
 		"shelljs": "^0.8.4",
 		"unified": "^10.1.0",

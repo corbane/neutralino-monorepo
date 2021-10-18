@@ -194,3 +194,21 @@ export function getObjectKeys (item)
         optional: keys.length ? keys : null 
     }
 }
+
+
+/**
+ * There is no function signature overload for a call to the server.
+ * This method ensures that the parameters are not of type `OneOf`, `AnyOf`
+ * @param {SchemaItem} params 
+ * @returns {asserts params is TypeObject}
+ */
+export function ensureParamsAsObject (params)
+{
+    if ('properties' in params)
+        return
+
+    throw new Error (
+        'The "params" fields must be an object.\n' +
+        'They cannot be an intersection or union of multiple subtypes (`oneof`, `allof`, `anyof`).'
+    )
+}

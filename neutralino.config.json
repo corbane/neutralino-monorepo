@@ -1,9 +1,9 @@
 {
-    "$schema"         : "./spec/dist/neutralino.config.schema.json",
+    "$schema"         : "./api/json/models/neutralino.config.schema.json",
     "applicationId"   : "js.neutralino.sample",
     "defaultMode"     : "window",
     "port"            : 0,
-    "url"             : "/test/",
+    "url"             : "/test/resources/",
     "enableHTTPServer": true,
     "enableNativeAPI" : true,
     "nativeBlockList" : [],
@@ -12,14 +12,14 @@
     },
     "modes": {
         "window": {
-            "title"             : "Neutralinojs app",
+            "title"             : "Neutralinojs Demo API",
             "width"             : 800,
             "height"            : 500,
             "minWidth"          : 400,
             "minHeight"         : 200,
             "fullScreen"        : false,
             "alwaysOnTop"       : false,
-            "icon"              : "/test/icons/appIcon.png",
+            "icon"              : "/test/resources/icons/appIcon.png",
             "enableInspector"   : true,
             "borderless"        : false,
             "maximize"          : false,
@@ -31,8 +31,8 @@
         "cloud": {}
     },
     "cli": {
-        "binaryName": "neutralino",
-        "resourcesPath": "/test/",
-        "clientLibrary": "/test/js/neutralino.js"
+        "binaryName": "neuapi",
+        "resourcesPath": "/test/resources/",
+        "clientLibrary": "/test/resources/js/neutralino.js"
     }
 }

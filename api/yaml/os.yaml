@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=./lib/neu-api.json
+# yaml-language-server: $schema=../json/neu-api.json
 $namespace: Neutralino.os
 $description: '`Neutralino.os` namespace contains methods related to the user''s operating system.'
 

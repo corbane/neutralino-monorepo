@@ -2,7 +2,7 @@
 //@ts-check
 
 /**
-    @typedef {import ('../out/html/sidebar.js')['default']} SidebarJS
+    @typedef {import ('../../api/html/sidebar.js')['default']} SidebarJS
     @typedef {Record <
         string,
         SidebarJS[keyof SidebarJS]
@@ -21,7 +21,7 @@ var MENU_GROUPS = {}
 document.addEventListener('DOMContentLoaded', async () =>
 {
     CURRENT_PAGE = null
-    DESCRIPTION = (await import ('../out/html/sidebar.js')).default
+    DESCRIPTION = (await import ('../../api/html/sidebar.js')).default
     fillMenu ()
     const page = localStorage.getItem ('CURRENT_PAGE')
     if (page) {
@@ -142,7 +142,7 @@ window.addEventListener ('scroll', () =>
 {
     localStorage.setItem ('CURRENT_SCROLL', ''+window.scrollY)
 
-    if (window.scrollY > 80) {
+    if (window.scrollY > 20) {
         $id ('header').classList.add ('small')
     } else {
         $id ('header').classList.remove ('small')

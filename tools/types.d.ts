@@ -12,3 +12,5 @@ type EventItem   = import ('./lib/neu-api').EventItem
 type Ref         = import ('./lib/neu-api').Ref
 type SubSchema   = import ('./lib/neu-api').SubSchema
 type TypeObject  = import ('./lib/neu-api').TypeObject
+
+type AnyItem = MethodItem|EventItem|RequestItem|SchemaItem

@@ -1,0 +1,58 @@
+<!-- !!! This file is generate by a script, do not modify it. !!! -->
+<p></p>
+<section data-zlevel="1"><header id="setData"><h2 id="setData">setData</h2></header><section data-sectionof="setData">
+<p>Writes data into Neutralinojs shared storage.</p>
+<pre><code class="language-js">await Neutralino.storage.putData({
+  bucket: 'userDetails',
+  data: JSON.stringify({
+    username: 'TestValue'
+  })
+});
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>key: string</code> <p>A key to indentify data.</p></li>
+<li><code>data: string</code> <p>Data as a string. If this value is <code>null</code> or <code>undefined</code>, the specific data record will be erased from the disk.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p>One of <strong><code>SetDataSuccess</code></strong> or <strong><code>SetDataError</code></strong></p>
+<section data-zlevel="3"><header id="SetDataSuccess"><h4>SetDataSuccess</h4></header><section data-sectionof="SetDataSuccess">
+<p><p></p></p>
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+</ul>
+</section></section><section data-zlevel="3"><header id="SetDataError"><h4>SetDataError</h4></header><section data-sectionof="SetDataError">
+<p><p></p></p>
+<p><strong>required</strong></p>
+<ul>
+<li><code>error: string</code> <p></p></li>
+</ul>
+</section></section></section></section></section></section><section data-zlevel="1"><header id="getData"><h2 id="getData">getData</h2></header><section data-sectionof="getData">
+<p>Reads and returns data for a given Neutralinojs shared storage key.</p>
+<pre><code class="language-js">let response = await Neutralino.storage.getData({
+  bucket: 'userDetails'
+});
+console.log(`Data: ${response.data}`);
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>key: string</code> <p>The key of the storage data record.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p>One of <strong><code>GetDataSuccess</code></strong> or <strong><code>GetDataError</code></strong></p>
+<section data-zlevel="3"><header id="GetDataSuccess"><h4>GetDataSuccess</h4></header><section data-sectionof="GetDataSuccess">
+<p><p></p></p>
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>returnValue: object</code> <p></p></li>
+</ul>
+</section></section><section data-zlevel="3"><header id="GetDataError"><h4>GetDataError</h4></header><section data-sectionof="GetDataError">
+<p><p></p></p>
+<p><strong>required</strong></p>
+<ul>
+<li><code>error: string</code> <p></p></li>
+</ul></section></section></section></section></section></section>

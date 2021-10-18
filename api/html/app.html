@@ -1,0 +1,50 @@
+<!-- !!! This file is generate by a script, do not modify it. !!! -->
+<p></p>
+<section data-zlevel="1"><header id="exit"><h2 id="exit">exit</h2></header><section data-sectionof="exit">
+<p>Terminates the running application.</p>
+<pre><code class="language-js">await Neutralino.app.exit();
+</code></pre>
+<pre><code class="language-js">await Neutralino.app.exit(130);
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>code: number</code> <p>An integer value for the process's exit code. The default value is always <code>0</code> (success).</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="getConfig"><h2 id="getConfig">getConfig</h2></header><section data-sectionof="getConfig">
+<p>Returns the current application configuration as a JSON object.</p>
+<pre><code class="language-js">Neutralino.app.getConfig ()
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>returnValue: dels/neutralino.config.schema.yaml</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="keepAlive"><h2 id="keepAlive">keepAlive</h2></header><section data-sectionof="keepAlive">
+<p>The keepAlive method is responsible for saving the Neutralinojs server instance from the automatic termination.
+This method is called automatically from the client library for the browser mode.</p>
+<pre><code class="language-js">Neutralino.app.keepAlive();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>message: string</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="killProcess"><h2 id="killProcess">killProcess</h2></header><section data-sectionof="killProcess">
+<p>Kills the application process.
+If the application becomes unresponsive,
+you can use this to terminate the process instantly.
+It is recommended to use the <code>exit()</code> method to close your application properly.</p>
+<pre><code class="language-js">await Neutralino.app.killProcess();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+</ul></section></section></section></section>

@@ -7,6 +7,7 @@
 
 
 import { h as H } from 'hastscript'
+import { toString } from 'mdast-util-to-string'
 
 /**
  *  @typedef {import ('hast').ElementContent} HastElementContent
@@ -84,17 +85,20 @@ export function zhastToHast (znode)
     }
 
     /** @type {HastElementContent[]} */
-    var children = new Array (znode.children.length)
+    const children = new Array (znode.children.length)
     var i = 0
 
-    for (var child of znode.children)
-    {
+    for (var child of znode.children) {
         children[i++] = child instanceof ZNode ? zhastToHast (child) : child
     }
 
-    return znode.element.data && typeof znode.element.data.id === 'string'
-         ? H ('section', { 'data-sectionof': znode.element.data.id }, znode.element, children)
-         : H ('section', { 'data-zlevel': znode.level }, znode.element, children) 
+    // TODO must be better
+    const id = toString (znode.element).replace (/[ "`']/g, '')
+
+    return H ('section', { 'data-zlevel': znode.level }, [
+        H ('header', { id }, znode.element),
+        H ('section', { 'data-sectionof': id }, children),
+    ])
 }
 
 

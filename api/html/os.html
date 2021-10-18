@@ -1,0 +1,183 @@
+<!-- !!! This file is generate by a script, do not modify it. !!! -->
+<p></p>
+<section data-zlevel="1"><header id="execCommand"><h2 id="execCommand">execCommand</h2></header><section data-sectionof="execCommand">
+<p>Executes a command and returns the output.</p>
+<pre><code class="language-js">Neutralino.os.execCommand ('python --version')
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>command: string</code> <p>The command that is to be executed.</p></li>
+</ul>
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>shouldRunInBackground: boolean</code> <p></p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>output: string</code> <p>String data taken from the both standard output (STDOUT) and standard error (STDERR) streams of the command's process.</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="getEnv"><h2 id="getEnv">getEnv</h2></header><section data-sectionof="getEnv">
+<p>Provides the value of a given environment variable.</p>
+<pre><code class="language-js">Neutralino.os.getEnv('USER')
+  .then (response => `USER = ${response.value}`);
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>key: string</code> <p>The name of the environment variable.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>returnValue: string</code> <p>Value of the given environment variable.</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="showOpenDialog"><h2 id="showOpenDialog">showOpenDialog</h2></header><section data-sectionof="showOpenDialog">
+<p>Shows the file open dialog.</p>
+<pre><code class="language-js">let response = await Neutralino.os.showDialogOpen({
+  title: 'Select a folder',
+  isDirectoryMode: true
+});
+console.log(`You've selected: ${response.selectedEntry}`);
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>title: string</code> <p>Title of the dialog.</p></li>
+</ul>
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>isDirectoryMode: boolean</code> <p>A boolean value to allow directories to be selected. The default value is <code>false</code>.</p></li>
+<li><code>filter: string[]</code> <p>An array of file extensions to filter the file list.  Eg: <code>filter: ['js', 'ts', '*']</code>.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>returnValue: string</code> <p>The selected value (a folder or directory).</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="showSaveDialog"><h2 id="showSaveDialog">showSaveDialog</h2></header><section data-sectionof="showSaveDialog">
+<p>Shows the file save dialog.</p>
+<pre><code class="language-js">let response = await Neutralino.os.showSaveDialog({
+  title: 'Save to a file'
+});
+console.log(`You've selected: ${response.selectedEntry}`);
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>title: string</code> <p>Title of the dialog.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>returnValue: string</code> <p>The selected value (a folder or directory).</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="showNotification"><h2 id="showNotification">showNotification</h2></header><section data-sectionof="showNotification">
+<p>Displays a notification message.</p>
+<pre><code class="language-js">await Neutralino.os.showNotification({
+  summary: 'Hello world',
+  body: 'It works!. Have a nice day'
+});
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>title: string</code> <p>Title of the dialog.</p></li>
+<li><code>content: string</code> <p>Content of the notification.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="showMessageBox"><h2 id="showMessageBox">showMessageBox</h2></header><section data-sectionof="showMessageBox">
+<p>Displays a message box.</p>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>title: string</code> <p>Title of the message box.</p></li>
+<li><code>content: string</code> <p>Content of the message box.</p></li>
+<li><code>type: string</code> <p>Message box type. Accepted values are <code>WARN</code>, <code>ERROR</code>, <code>INFO</code>, and <code>QUESTION</code>.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="setTray"><h2 id="setTray">setTray</h2></header><section data-sectionof="setTray">
+<p>Creates/updates the tray icon and menu.</p>
+<pre><code class="language-js">let tray = {
+  icon: '/resources/icons/trayIcon.png',
+  menuItems: [
+    {id: "about", text: "About"},
+    {text: "-"},
+    {id: "quit", text: "Quit"}
+  ]
+};
+await Neutralino.os.setTray(tray);
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>icon: string</code> <p></p></li>
+<li><code>menu: TrayItem[]</code> <p></p></li>
+</ul>
+<section data-zlevel="3"><header id="TrayItem"><h4>TrayItem</h4></header><section data-sectionof="TrayItem">
+<p><p></p></p>
+<p><strong>required</strong></p>
+<ul>
+<li><code>text: string</code> <p>Label of the menu item. This field is a mandatory field. Use <code>-</code> (hyphen) character for a menu separator.</p></li>
+</ul>
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>id: string</code> <p>A unique identifier for each menu item.</p></li>
+<li><code>isDisabled: boolean</code> <p>A boolean flag to disable/enable a specific menu item.</p></li>
+<li><code>isChecked: boolean</code> <p>A boolean flag to mark a specific menu item as selected.</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="open"><h2 id="open">open</h2></header><section data-sectionof="open">
+<p>Opens a URL with the default web browser.</p>
+<p>:::tip
+If your application is running in the default web browser, this method will open a new tab.
+:::</p>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>url: string</code> <p>URL to be opened (required).</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="getPath"><h2 id="getPath">getPath</h2></header><section data-sectionof="getPath">
+<p></p>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>name: string</code> <p></p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p>One of <strong><code>GetPathSuccess</code></strong> or <strong><code>GetPathError</code></strong></p>
+<section data-zlevel="3"><header id="GetPathSuccess"><h4>GetPathSuccess</h4></header><section data-sectionof="GetPathSuccess">
+<p><p></p></p>
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>returnValue: string</code> <p></p></li>
+</ul>
+</section></section><section data-zlevel="3"><header id="GetPathError"><h4>GetPathError</h4></header><section data-sectionof="GetPathError">
+<p><p></p></p>
+<p><strong>required</strong></p>
+<ul>
+<li><code>error: string</code> <p></p></li>
+</ul></section></section></section></section></section></section>

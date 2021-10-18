@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=./lib/neu-api.json
+# yaml-language-server: $schema=../json/neu-api.json
 $namespace: Neutralino.storage
 $description: |-
     Neutralinojs has a built-in shared key-value storage. It's like a

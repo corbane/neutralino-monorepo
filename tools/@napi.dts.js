@@ -22,11 +22,6 @@ import { readYamlFile, writeFile } from './lib/io.js'
 import { visitObject } from './lib/obj.js'
 import { isMain, hasArgument, requireArgument, requireArgumentList } from '../tools/lib/cmd.js'
 
-const HEADER =
-`// !!! This file is generate by a script, do not modify it. !!!
-//
-// Message definition for Neutralino client API.
-`/*HEADER*/
 
 if (isMain (import.meta))
     main ()
@@ -59,15 +54,22 @@ export async function main ()
 
 
 //------------------------------------------------------------------------------
-// Code Generators
+// Generators
 //------------------------------------------------------------------------------
 
 
 /**
- * @typedef {{ doc: NapiDocument } &
- *     ReturnType <typeof splitRefPath>
- * } ExternalDoc 
- */
+    @typedef {{ doc: NapiDocument } &
+        ReturnType <typeof splitRefPath>
+    } ExternalDoc 
+*/
+
+const getHeader = () => 
+`// !!! This file is generate by a script, do not modify it. !!!
+//
+// Message definition for Neutralino client API.
+// Generated on ${new Date ().toUTCString ()}
+`/*HEADER*/
 
 /**
  * @param {NapiDocument[]} apidocs
@@ -103,7 +105,7 @@ async function formatApis (apidocs)
         externals.map (entry => formatModule ("'" + entry.fspath + "'", entry.doc))
     )
 
-    return HEADER + '\n'
+    return getHeader () + '\n'
          + requests + '\n\n'
          + contents.join ('\n\n') + '\n\n'
          + externdts
@@ -230,7 +232,7 @@ function formatDescription (sch, level = 0)
  * @param {Schema} sch 
  * @returns {string}
  */
-function formatType (doc, sch, level = 0)
+export function formatType (doc, sch, level = 0)
 {
     /** @param {string} ref */
     const refname = (ref) => 

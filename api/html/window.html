@@ -1,0 +1,221 @@
+<!-- !!! This file is generate by a script, do not modify it. !!! -->
+<p></p>
+<section data-zlevel="1"><header id="setTitle"><h2 id="setTitle">setTitle</h2></header><section data-sectionof="setTitle">
+<p>Sets the title of the native window.</p>
+<pre><code class="language-js">Neutralino.window.setTitle ('My window')
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>title: string</code> <p>Title of the window as a string.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="setSize"><h2 id="setSize">setSize</h2></header><section data-sectionof="setSize">
+<p>Resize the native window.</p>
+<p>This feature is suitable to make custom window bars along with the <a href="https://neutralino.js.org/docs/configuration/neutralino.config.json#modeswindowborderless-boolean">borderless mode</a>.</p>
+<p>This method always expects width and height couples.
+For example, if you are setting <code>minWidth</code>, you should set <code>minHeight</code> too.</p>
+<pre><code class="language-js">Neutralino.window.setSize({
+    width: 500,
+    height: 200,
+    maxWidth: 600,
+    maxHeight: 400
+});
+</code></pre>
+<pre><code class="language-js">Neutralino.window.setSize({
+    resizable: false
+});
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>width: number</code> <p>Window width in pixels.</p></li>
+<li><code>height: number</code> <p>Window height in pixels.</p></li>
+<li><code>minWidth: number</code> <p>Minimum width of the window in pixels.</p></li>
+<li><code>minHeight: number</code> <p>Minimum height of the window in pixels.</p></li>
+<li><code>maxWidth: number</code> <p>Maximum width of the window in pixels.</p></li>
+<li><code>maxHeight: number</code> <p>Maximum height of the window in pixels.</p></li>
+<li><code>resizable: boolean</code> <p>A boolean value to make the window resizable or fixed.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="setIcon"><h2 id="setIcon">setIcon</h2></header><section data-sectionof="setIcon">
+<p>Sets an icon for the native window or Dock.</p>
+<pre><code class="language-js">Neutralino.window.setIcon ('/resources/icons/appIcon.png');
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>icon: string</code> <p>Path of the icon. A <code>200x200</code> PNG image file works fine on all supported operating systems.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="focus"><h2 id="focus">focus</h2></header><section data-sectionof="focus">
+<p>Focuses the native window.</p>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="hide"><h2 id="hide">hide</h2></header><section data-sectionof="hide">
+<p>Hides the native window.</p>
+<pre><code class="language-js">Neutralino.window.hide ().then (() => {
+  window.setTimeout (() => Neutralino.window.show (), 1000)
+})
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="isVisible"><h2 id="isVisible">isVisible</h2></header><section data-sectionof="isVisible">
+<p>Returns true if the native window is visible.</p>
+<pre><code class="language-js">Neutralino.window.isVisible ();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>sucess: boolean</code> <p></p></li>
+<li><code>returnValue: boolean</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="show"><h2 id="show">show</h2></header><section data-sectionof="show">
+<p>Shows the native window.</p>
+<pre><code class="language-js">Neutralino.window.hide ().then (() => {
+  window.setTimeout (() => Neutralino.window.show (), 1000)
+})
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="minimize"><h2 id="minimize">minimize</h2></header><section data-sectionof="minimize">
+<p>Minimizes the native window.</p>
+<pre><code class="language-js">Neutralino.window.minimize ()
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="maximize"><h2 id="maximize">maximize</h2></header><section data-sectionof="maximize">
+<p>Maximizes the native window.</p>
+<pre><code class="language-js">Neutralino.window.maximize ();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="isMaximized"><h2 id="isMaximized">isMaximized</h2></header><section data-sectionof="isMaximized">
+<p>Returns true if the native window is maximized.</p>
+<pre><code class="language-js">Neutralino.window.isMaximized ();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>sucess: boolean</code> <p></p></li>
+<li><code>returnValue: boolean</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="unmaximize"><h2 id="unmaximize">unmaximize</h2></header><section data-sectionof="unmaximize">
+<p>Restores the native window.</p>
+<pre><code class="language-js">Neutralino.window.unmaximize ();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="setFullScreen"><h2 id="setFullScreen">setFullScreen</h2></header><section data-sectionof="setFullScreen">
+<p>Enables the full screen mode.</p>
+<pre><code class="language-js">Neutralino.window.setFullScreen ();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="isFullScreen"><h2 id="isFullScreen">isFullScreen</h2></header><section data-sectionof="isFullScreen">
+<p>Returns true if the native window is in the full screen mode.</p>
+<pre><code class="language-js">Neutralino.window.isFullScreen ();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>success: boolean</code> <p></p></li>
+<li><code>returnValue: boolean</code> <p></p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="exitFullScreen"><h2 id="exitFullScreen">exitFullScreen</h2></header><section data-sectionof="exitFullScreen">
+<p>Exits from the full screen mode.</p>
+<pre><code class="language-js">Neutralino.window.exitFullScreen ();
+</code></pre>
+<section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="move"><h2 id="move">move</h2></header><section data-sectionof="move">
+<p>Moves the native window into given coordinates.</p>
+<p>Neutralinojs's cross-platform coordinate system starts from top-left corner of the screen.
+In other words, <code>x=0,y=0</code> point refers to the top-left corner of the device's main screen.</p>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>x: number</code> <p>A integer value for the horizontal position.</p></li>
+<li><code>y: number</code> <p>A integer value for the vertical position.</p></li>
+</ul>
+</section></section><section data-zlevel="2"><header id="Return"><h3>Return</h3></header><section data-sectionof="Return">
+<p><strong>required</strong></p>
+<ul>
+<li><code>success: boolean</code> <p>Always true</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="setDraggableRegion"><h2 id="setDraggableRegion">setDraggableRegion</h2></header><section data-sectionof="setDraggableRegion">
+<p>Converts a given DOM element to a draggable region. The user will be able to drag the native window by dragging the given DOM element. This feature is suitable to make custom window bars along with the <a href="../configuration/neutralino.config.json#modeswindowborderless-boolean">borderless mode</a>.</p>
+<pre><code class="language-js">await Neutralino.window.setDraggableRegion('myCustomTitleBar');
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>domId: string</code> <p>A DOM element identifier as a string.</p></li>
+</ul>
+</section></section></section></section><section data-zlevel="1"><header id="create"><h2 id="create">create</h2></header><section data-sectionof="create">
+<p>Creates a native window. You can use this method to create new window for your multi-window Neutralinojs app.
+Neutralinojs spawns a new process for each native window. Therefore, the new window works as an isolated app once the window is created.</p>
+<p>However, you can build communication streams between windows with the <a href="./storage.md">storage API</a>.</p>
+<pre><code class="language-js">Neutralino.window.create('/resources/aboutWindow.html', {
+    icon: '/resources/icons/aboutIcon.png',
+    enableInspector: false,
+    width: 500,
+    height: 300,
+    maximizable: false,
+    processArgs: '--window-id=W_ABOUT'
+});
+</code></pre>
+<section data-zlevel="2"><header id="Parameters"><h3>Parameters</h3></header><section data-sectionof="Parameters">
+<p><strong>required</strong></p>
+<ul>
+<li><code>url: string</code> <p>URL to be loaded. Eg: <code>/resources/aboutWindow.html</code>.</p></li>
+</ul>
+<p><strong>Optional</strong></p>
+<ul>
+<li><code>title: string</code> <p>Window title.</p></li>
+<li><code>icon: string</code> <p>Window icon path.</p></li>
+<li><code>fullScreen: string</code> <p>Sets full screen mode.</p></li>
+<li><code>alwaysOnTop: string</code> <p>Activates the top-most mode.</p></li>
+<li><code>enableInspector: string</code> <p>Activates developer tools and opens the web inspector window.</p></li>
+<li><code>borderless: string</code> <p>Makes the window borderless.</p></li>
+<li><code>maximize: string</code> <p>Launches the window maximized.</p></li>
+<li><code>hidden: string</code> <p>Hides the window.</p></li>
+<li><code>maximizable: string</code> <p>Makes the window maximizable or not.</p></li>
+<li><code>processArgs: string</code> <p>Additional command-line arguments for the new window process.</p></li>
+</ul></section></section></section></section>

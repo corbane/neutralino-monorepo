@@ -21,8 +21,22 @@ type ShareItem = {
   description?: string
 }
 
+type RequestItem = ShareItem & {
+  type: "http:post"|"http:get"
+  /**
+   * Reference to an item in the file.
+   * Should never be an intersection or union of several subtypes, `oneof`, `allof`, `anyof`.
+   */
+  params?: Ref
+  result?: Ref
+}
+
 type MethodItem = ShareItem & {
   type: "js:method"
+  /**
+   * Reference to an item in the file.
+   * Should never be an intersection or union of several subtypes, `oneof`, `allof`, `anyof`.
+   */
   params?: Ref
   result?: Ref
 }
@@ -30,12 +44,6 @@ type MethodItem = ShareItem & {
 type EventItem = ShareItem & {
   type: "js:event"
   data: Ref
-}
-
-type RequestItem = ShareItem & {
-  type: "http:post"|"http:get"
-  params?: Ref
-  result?: Ref
 }
 
 type SchemaItem = AnyOf | OneOf | TypeObject
@@ -64,6 +72,9 @@ export type Type
   | TypeNumeric
   | TypeString
 
+/**
+ * Reference to an item in the file
+ */
 export type Ref = {
   $ref: string
 }

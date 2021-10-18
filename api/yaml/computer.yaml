@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=./lib/neu-api.json
+# yaml-language-server: $schema=../json/neu-api.json
 $namespace: Neutralino.computer
 $description: '`Neutralino.debug` namespace contains application debugging utilities.'
 

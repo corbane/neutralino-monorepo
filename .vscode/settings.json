@@ -3,13 +3,14 @@
         "**/.git"         : true,
         "*.code-workspace": true,
         "**/node_modules" : true,
-        "**/*.no"         : true,
-        "server"          : true,
-        "bin"             : true,
-        "client"          : true,
-        "site"            : true,
-        "cli"             : true,
-        "tools"           : true,
-        "test"            : true
+        "**/*.no"         : false,
+        "server"          : false,
+        "bin"             : false,
+        "client"          : false,
+        "site"            : false,
+        "cli"             : false,
+        "api"             : false,
+        "tools"           : false,
+        "test"            : false
     }
 }
